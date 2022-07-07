@@ -1,0 +1,7 @@
+{
+  "name": "ionic-listapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
