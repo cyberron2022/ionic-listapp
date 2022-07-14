@@ -1,0 +1,30 @@
+
+
+.img-small::part(image) {
+    width: 50%; 
+    /* height: 9rem;  */
+    /* or whatever value */
+    /* you can set the height value too */
+  }
+  
+.label-divider{
+    font-size:12px;
+    margin-left:10px;
+}  
+.item-divider{
+    background-color:rgb(242,242,247);
+
+}
+
+
+.avatar-content {
+    display: flex; 
+    justify-content: center
+}
+
+.item-avatar  { 
+    width:100% !important;  
+    height : 100% !important;  
+    max-width: 180px !important;  
+    max-height: 180px !important; 
+}

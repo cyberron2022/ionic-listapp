@@ -1,0 +1,22 @@
+.field:not(:last-child) {
+    margin-bottom: 1rem !important;
+  }
+  
+  .field {
+  
+    ion-label {
+  
+        padding-left: 0.2rem;
+        padding-right: 0.5rem;
+        //color: #d3a6c7;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+  
+        p {
+  
+            color: rgb(236, 149, 35);
+        }
+    }
+  }
