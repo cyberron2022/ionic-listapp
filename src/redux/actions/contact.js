@@ -14,7 +14,7 @@ import {
 import addexpirytime from "../../data/addexpirytime";
 
 export async function getContacts(location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api";
 
   let token = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token"))
@@ -39,7 +39,7 @@ export async function getContacts(location_path) {
 }
 
 export async function getContactsDetailByID(id, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api";
 
   let token = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token"))
@@ -66,7 +66,7 @@ export async function getContactsDetailByID(id, location_path) {
 }
 
 export async function deleteContactByID(id, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api";
 
   let token = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token"))
@@ -95,7 +95,7 @@ export async function deleteContactByID(id, location_path) {
 }
 
 export async function createContact(payload, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api";
 
   let token = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token"))
@@ -124,7 +124,7 @@ export async function createContact(payload, location_path) {
 }
 
 export async function updateContactByID(payload, id, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api";
 
   let token = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token"))

@@ -14,7 +14,7 @@ export function setUserInfo(payload) {
 }
 
 export async function loginUser(loginPayload, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api/auth";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api/auth";
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ export async function loginUser(loginPayload, location_path) {
 }
 
 export async function registerUser(payload, location_path) {
-  const ROOT_URL = "http://truly-contacts.herokuapp.com/api/auth";
+  const ROOT_URL = "https://truly-contacts.herokuapp.com/api/auth";
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
