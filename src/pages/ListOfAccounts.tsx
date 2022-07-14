@@ -42,11 +42,11 @@ const ListOfAccounts: React.FC = () => {
       <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
+            <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
           </IonButtons>
           <IonTitle>List of Accounts</IonTitle>
           <IonButtons slot="end">
-            <IonButton routerLink="/settings">
+            <IonButton routerLink="/ionic-listapp/settings">
               <IonIcon icon={settingsOutline} slot="icon-only"></IonIcon>
             </IonButton>
           </IonButtons>
@@ -64,7 +64,7 @@ const ListOfAccounts: React.FC = () => {
             .map((item: any, index) => (
               <IonItem
                 key={index}
-                routerLink={`/accountlist/details/${item.email}`}
+                routerLink={`/ionic-listapp/accountlist/details/${item.email}`}
               >
                 <IonAvatar slot="start">
                   <IonImg src={item.picture.thumbnail}></IonImg>

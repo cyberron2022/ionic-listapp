@@ -69,7 +69,7 @@ const usersReducer = (state = initialState, action = {}) => {
         user: "",
         token: "",
         loading: false,
-        errorMessage: action.payload.detail,
+        errorMessage: action.payload.detail && action.payload.message,
         userDetails: [],
       };
     case USER_LOGOUT:
