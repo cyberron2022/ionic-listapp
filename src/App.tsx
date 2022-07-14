@@ -81,14 +81,15 @@ const App: React.FC = () => {
       let token = JSON.parse(toke_str);
 
       if (
-        (location_path !== "/login" || location_path !== "/logout") &&
+        (location_path !== "/ionic-listapp/login" ||
+          location_path !== "/ionic-listapp/logout") &&
         location_path === null
       ) {
-        navigate("/login");
+        navigate("/ionic-listapp/login");
       }
 
       if (isExpired("expiry")) {
-        navigate("/login");
+        navigate("/ionic-listapp/login");
       }
     }, 1000);
 
