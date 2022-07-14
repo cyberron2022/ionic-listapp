@@ -73,7 +73,7 @@ const Login: React.FC = () => {
         console.log("Result", result);
 
         if (result.type == "LOGIN_SUCCESS") {
-          navigate("/"); //navigate to Home on success
+          navigate("/ionic-listapp/"); //navigate to Home on success
         }
         if (result.type == "LOGIN_FAIL") {
           setShowAlert(true);
@@ -168,7 +168,7 @@ const Login: React.FC = () => {
             <Action
               message="Don't have an account?"
               text="Sign up"
-              link="/signup"
+              link="/ionic-listapp/signup"
             />
           </IonGrid>
         </IonFooter>

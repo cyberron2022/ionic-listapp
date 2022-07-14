@@ -102,37 +102,49 @@ const App: React.FC = () => {
       <IonReactRouter>
         <Menu />
         <IonRouterOutlet id="main">
-          <Route exact path="/home" component={Home}></Route>
-          <Route exact path="/" component={Home}></Route>
-          <Route exact path="/accountlist" component={ListOfAccounts}></Route>
-          <Route exact path="/contacts">
+          <Route exact path="/ionic-listapp/home" component={Home}></Route>
+          <Route exact path="/ionic-listapp/" component={Home}></Route>
+          <Route
+            exact
+            path="/ionic-listapp/accountlist"
+            component={ListOfAccounts}
+          ></Route>
+          <Route exact path="/ionic-listapp/contacts">
             <Contacts></Contacts>
           </Route>
-          <Route exact path="/create-contact">
+          <Route exact path="/ionic-listapp/create-contact">
             <CreateContact></CreateContact>
           </Route>
           <Route
             exact
-            path="/contacts/details/:id"
+            path="/ionic-listapp/contacts/details/:id"
             component={ContactDetails}
           ></Route>
           <Route
             exact
-            path="/contacts/update/:id"
+            path="/ionic-listapp/contacts/update/:id"
             component={UpdateContact}
           ></Route>
-          <Route exact path="/settings" component={Settings}></Route>
           <Route
             exact
-            path="/accountlist/details/:email"
+            path="/ionic-listapp/settings"
+            component={Settings}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/accountlist/details/:email"
             component={Details}
           ></Route>
 
-          <Route exact path="/login" component={Login}></Route>
-          <Route exact path="/signup" component={Register}></Route>
-          <Route exact path="/logout" component={Logout}></Route>
+          <Route exact path="/ionic-listapp/login" component={Login}></Route>
+          <Route
+            exact
+            path="/ionic-listapp/signup"
+            component={Register}
+          ></Route>
+          <Route exact path="/ionic-listapp/logout" component={Logout}></Route>
           <Route component={ErrorPage}></Route>
-          <Route exact path="/testpage">
+          <Route exact path="/ionic-listapp/testpage">
             <TestPage></TestPage>
           </Route>
         </IonRouterOutlet>

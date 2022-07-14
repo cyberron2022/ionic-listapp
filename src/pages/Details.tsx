@@ -36,7 +36,10 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
   useIonViewWillEnter(async () => {
     //console.log("match:", match);
     //console.log("history", history);
-    const paramEmail = match.url.replace("/accountlist/details/", "");
+    const paramEmail = match.url.replace(
+      "/ionic-listapp/accountlist/details/",
+      ""
+    );
     const user = await getUserByEmail(paramEmail);
     console.log(user);
     if (user) {
@@ -66,7 +69,7 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
+            <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
           </IonButtons>
           <IonLabel>Back</IonLabel>
           {/* <IonTitle>

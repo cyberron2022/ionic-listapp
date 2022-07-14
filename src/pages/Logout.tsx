@@ -34,7 +34,7 @@ function Logout() {
     async function logOut() {
       dispatch(await logout());
 
-      navigate("/login");
+      navigate("/ionic-listapp/login");
     }
     // Execute the created function directly
     logOut();

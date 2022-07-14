@@ -131,7 +131,7 @@ const CreateContact: React.FC = () => {
         <IonHeader translucent>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
               {/* <IonLabel>Back</IonLabel> */}
             </IonButtons>
             <IonTitle slot="start">New contact</IonTitle>

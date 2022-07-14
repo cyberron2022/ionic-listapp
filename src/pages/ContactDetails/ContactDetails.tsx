@@ -42,9 +42,6 @@ import {
   getContactsDetailByID,
   updateContactByID,
 } from "../../redux/actions/contact";
-import store from "../../redux/store";
-
-//import { useData } from "../hooks/useData";
 
 import "./ContactDetails.css";
 
@@ -71,7 +68,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
   const { data } = contacts.getContactsDetail; // GET Data from REDUX STORE
   const dispatch = useDispatch();
 
-  const paramID = match.url.replace("/contacts/details/", "");
+  const paramID = match.url.replace("/ionic-listapp/contacts/details/", "");
 
   useIonViewWillEnter(async () => {
     console.log("ION WILL ENTER");
@@ -163,7 +160,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
         <IonHeader translucent>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
               <IonLabel>Back</IonLabel>
             </IonButtons>
 
@@ -298,7 +295,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
                       disabled={hasError ? true : false}
                       className="ion-text-capitalize"
                       color="secondary"
-                      routerLink={`/contacts/update/${data?.id}`}
+                      routerLink={`/ionic-listapp/contacts/update/${data?.id}`}
                       routerDirection="forward"
                     >
                       Edit Contact

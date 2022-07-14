@@ -23,7 +23,7 @@ function Settings() {
   const { navigate } = useContext(NavContext);
   useEffect(() => {
     if (isLgggedIn()) {
-      navigate("/login");
+      navigate("/ionic-listapp/login");
     }
   }, []);
 

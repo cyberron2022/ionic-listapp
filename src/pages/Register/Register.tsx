@@ -130,7 +130,7 @@ const Register: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
             </IonButtons>
             <IonTitle slot="start">Sign Up</IonTitle>
           </IonToolbar>

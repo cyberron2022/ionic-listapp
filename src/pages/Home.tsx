@@ -44,7 +44,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (isLgggedIn()) {
-      navigate("/login");
+      navigate("/ionic-listapp/login");
     }
   }, []);
 

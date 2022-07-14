@@ -64,7 +64,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   const [errors, setErrors] = useState<any>(false);
   const [showAlert, setShowAlert] = useState(false);
   let location = useLocation<any>();
-  const paramID = match.url.replace("/contacts/update/", "");
+  const paramID = match.url.replace("/ionic-listapp/contacts/update/", "");
 
   useIonViewWillEnter(async () => {
     let location_str: any = localStorage.getItem("location_path");
@@ -114,9 +114,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   });
 
   const updateHandlerBtn = async () => {
-    console.log("NEW FIELDS", fields);
-    console.log("IMAGE", data?.contact_picture);
-
     const errors = validateForm(fields);
     setErrors(errors);
     if (!errors.length) {
@@ -199,7 +196,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
         <IonHeader translucent>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
               {/* <IonLabel>Back</IonLabel> */}
             </IonButtons>
             <IonTitle slot="start">Update contact</IonTitle>

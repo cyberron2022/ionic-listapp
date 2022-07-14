@@ -22,7 +22,7 @@ const ErrorPage: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
+            <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
           </IonButtons>
           <IonTitle>Page Error</IonTitle>
         </IonToolbar>
@@ -38,7 +38,8 @@ const ErrorPage: React.FC = () => {
             <IonRow>
               <IonCol>
                 <IonLabel>
-                  Please go back to <Link to="/home">Home Page</Link>
+                  Please go back to{" "}
+                  <Link to="/ionic-listapp/home">Home Page</Link>
                 </IonLabel>
               </IonCol>
             </IonRow>

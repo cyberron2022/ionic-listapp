@@ -92,7 +92,7 @@ const Contacts: React.FC = () => {
         <IonFab vertical="bottom" horizontal="end">
           <IonFabButton
             color="danger"
-            routerLink="/create-contact"
+            routerLink="/ionic-listapp/create-contact"
             routerDirection="forward"
             // onClick={() => {
             //   addHandlerBtn();
@@ -104,7 +104,7 @@ const Contacts: React.FC = () => {
         <IonHeader>
           <IonToolbar color="primary">
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
             </IonButtons>
             <IonTitle>List of Contacts</IonTitle>
           </IonToolbar>
@@ -145,7 +145,7 @@ const Contacts: React.FC = () => {
                 .map((item: any, index: any) => (
                   <IonItem
                     key={item.id}
-                    routerLink={`/contacts/details/${item.id}`}
+                    routerLink={`/ionic-listapp/contacts/details/${item.id}`}
                     routerDirection="forward"
                   >
                     <IonAvatar slot="start">
