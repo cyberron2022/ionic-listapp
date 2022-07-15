@@ -3,13 +3,27 @@ import { useState } from "react";
 export const useFormInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
+  // const handleChange = async (e) => {
+  //   // const tempValue = e.target.value.replace(/\D/g, "");
+  //   // setValue(tempValue);
+  //   // const re = /^[0-9\b]+$/;
+  //   // console.log("change", re.test(e.target.value));
+  //   // if (re.test(e.target.value)) {
+  //   //   console.log("true");
+  //   //   const tempValue = await e.currentTarget.value;
+  //   //   setValue(tempValue);
+  //   // } else {
+  //   //   console.log("false");
+  //   // }
+  // };
+
   const handleChange = async (e) => {
     const tempValue = await e.currentTarget.value;
     setValue(tempValue);
   };
 
   return {
-    value: value,
+    value,
     reset: (newValue) => setValue(newValue),
     onIonChange: handleChange,
     onKeyUp: handleChange,

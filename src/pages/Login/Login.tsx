@@ -116,12 +116,12 @@ const Login: React.FC = () => {
                 size="12"
                 className={[
                   styles.headingText,
-                  "animate__animated animate__bounceInRight",
+                  "animate__animated animate__bounceInLeft",
                 ].join(" ")}
               >
                 <h5>Welcome to my Project</h5>
               </IonCol>
-              <IonCol
+              {/* <IonCol
                 size="12"
                 className={[
                   styles.headingText,
@@ -129,7 +129,7 @@ const Login: React.FC = () => {
                 ].join(" ")}
               >
                 <h5>Please login here</h5>
-              </IonCol>
+              </IonCol> */}
             </IonRow>
 
             <IonRow className="ion-margin-top ion-padding-top">
@@ -164,13 +164,24 @@ const Login: React.FC = () => {
         </IonContent>
 
         <IonFooter>
-          <IonGrid className="ion-no-margin ion-no-padding ">
+          <IonToolbar className="ion-no-margin ion-no-padding ">
+            <IonGrid className="ion-no-margin ion-no-padding ">
+              <Action
+                message="Don't have an account?"
+                text="Sign up"
+                link="/ionic-listapp/signup"
+              />
+            </IonGrid>
+          </IonToolbar>
+
+          {/* <IonToolbar className="ion-no-margin ion-no-padding ">
             <Action
               message="Don't have an account?"
               text="Sign up"
               link="/ionic-listapp/signup"
             />
-          </IonGrid>
+            
+          </IonToolbar> */}
         </IonFooter>
       </IonPage>
     </>
