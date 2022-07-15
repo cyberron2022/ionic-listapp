@@ -1,3 +1,4 @@
+import { Camera, CameraResultType } from "@capacitor/camera";
 import {
   IonAlert,
   IonAvatar,
@@ -8,12 +9,6 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonItemDivider,
-  IonItemGroup,
-  IonLabel,
   IonLoading,
   IonPage,
   IonRow,
@@ -22,23 +17,25 @@ import {
   NavContext,
   useIonViewWillEnter,
 } from "@ionic/react";
-import { useUpdateContactFields } from "../../data/fields";
 import React, { useContext, useEffect, useState } from "react";
-import { DEFAULT_IMAGE_URI } from "../../assets/general";
+import { useDispatch, useSelector } from "react-redux";
 import {
   RouteComponentProps,
   useHistory,
   useLocation,
   useParams,
 } from "react-router";
+import { DEFAULT_IMAGE_URI } from "../../assets/general";
 import CustomField from "../../components/UpdateContact/CustomField";
-import styles from "./UpdateContact.module.scss";
+import { useUpdateContactFields } from "../../data/fields";
 import { validateForm } from "../../data/utils";
 import {
   getContactsDetailByID,
   updateContactByID,
 } from "../../redux/actions/contact";
-import { useDispatch, useSelector } from "react-redux";
+import styles from "./UpdateContact.module.scss";
+
+import supabase from "../../supabase-client";
 
 interface ContactDetailPageProps
   extends RouteComponentProps<{
@@ -63,6 +60,9 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   const [hasError, setHasError] = useState(false);
   const [errors, setErrors] = useState<any>(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
+  const [imagePath, setImagePath] = useState<any>("");
+
   let location = useLocation<any>();
   const paramID = match.url.replace("/ionic-listapp/contacts/update/", "");
 
@@ -122,7 +122,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
         first_name: fields[0].input.state.value,
         last_name: fields[1].input.state.value,
         phone_number: fields[2].input.state.value,
-        contact_picture: data?.contact_picture,
+        contact_picture: imagePath || data?.contact_picture,
         is_favorite: true,
       };
 
@@ -170,11 +170,71 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
     history.goBack();
     //navigate("/contacts");
   };
+
+  const uploadImage = async (path: string) => {
+    const response = await fetch(path);
+    const blob = await response.blob();
+
+    const filename = path.substring(path.lastIndexOf("/") + 1);
+    const { data, error } = await supabase.storage
+      .from("image-bucket") //Created STORATE NAME in supabase.com account
+      .upload(`public/${filename}`, blob, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    if (error) alert(error.message);
+    else {
+      let url = await getPicturesUrl(`public/${filename}`);
+      setImagePath(url);
+
+      setTimeout(() => {
+        setIsUpload(false);
+      }, 1500);
+    }
+
+    return true;
+  };
+
+  /**
+   * Take Photo Function
+   */
+  const takePicture = async () => {
+    try {
+      const cameraResult = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri,
+      });
+      const path: any = cameraResult?.webPath || cameraResult?.path;
+
+      // console.log("WEB PATH", path);
+      console.log("BLOB", path);
+
+      setImagePath(null);
+      setIsUpload(true);
+      await uploadImage(path);
+      return true;
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  const getPicturesUrl = async (path: any) => {
+    const { publicURL, error } = supabase.storage
+      .from("image-bucket")
+      .getPublicUrl(path);
+
+    if (error) alert(error.message);
+    console.log("Public URL", publicURL);
+    return publicURL;
+  };
+
   return (
     <>
       <IonLoading
         //cssClass='my-custom-class'
-        isOpen={contacts.updateContact?.loading}
+        isOpen={contacts.updateContact?.loading || isUpload}
         message={"Please wait..."}
         //duration={5000}
       />
@@ -205,13 +265,11 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
         <IonContent fullscreen>
           <IonGrid>
             <IonRow className="ion-margin-start ion-padding-top ion-padding-end ">
-              <IonCol size="12" className="avatar-content">
-                <IonAvatar className="item-avatar">
+              <IonCol size="12" className={styles.avatarContent}>
+                <IonAvatar className={styles.itemAvatar}>
                   <img
                     src={
-                      data?.contact_picture
-                        ? data?.contact_picture
-                        : DEFAULT_IMAGE_URI
+                      imagePath || data?.contact_picture || DEFAULT_IMAGE_URI
                     }
                   ></img>
                 </IonAvatar>
@@ -224,6 +282,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
                   className="ion-text-capitalize"
                   size="small"
                   color="secondary"
+                  onClick={takePicture}
                 >
                   Upload Photo
                 </IonButton>

@@ -20,3 +20,28 @@
         }
     }
   }
+
+  .avatarContent {
+    display: flex; 
+    justify-content: center
+}
+  .itemAvatar  { 
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+}
+.dot {
+    display: block;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 16px 10px 16px 16px;
+    object-fit: cover;
+    // width: 100%;
+    // height: 250px;
+
+
+
+}

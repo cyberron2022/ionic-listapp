@@ -36,9 +36,9 @@ import "./theme/variables.css";
 
 import ContactDetails from "./pages/ContactDetails/ContactDetails";
 import Contacts from "./pages/Contacts/Contacts";
+import CreateContact from "./pages/CreateContact/CreateContact";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register/Register";
-import CreateContact from "./pages/CreateContact/CreateContact";
 import TestPage from "./pages/TestPage";
 import UpdateContact from "./pages/UpdateContact/UpdateContact";
 setupIonicReact();
@@ -144,7 +144,12 @@ const App: React.FC = () => {
             component={Register}
           ></Route>
           <Route exact path="/ionic-listapp/logout" component={Logout}></Route>
-          <Route component={ErrorPage}></Route>
+          <Route
+            exact
+            path="/ionic-listapp/error"
+            component={ErrorPage}
+          ></Route>
+          <Route component={Home}></Route>
           <Route exact path="/ionic-listapp/testpage">
             <TestPage></TestPage>
           </Route>

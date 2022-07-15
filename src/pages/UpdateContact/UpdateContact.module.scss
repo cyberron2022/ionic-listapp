@@ -20,3 +20,15 @@
         }
     }
   }
+
+  .avatarContent {
+    display: flex; 
+    justify-content: center
+}
+  .itemAvatar  { 
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+}

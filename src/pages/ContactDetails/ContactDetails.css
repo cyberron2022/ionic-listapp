@@ -23,8 +23,8 @@
 }
 
 .item-avatar  { 
-    width:100% !important;  
-    height : 100% !important;  
-    max-width: 180px !important;  
-    max-height: 180px !important; 
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
 }
