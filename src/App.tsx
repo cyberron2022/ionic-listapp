@@ -45,7 +45,7 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const { navigate } = useContext(NavContext);
-  const user_str: any = localStorage.getItem("currentUser");
+  //const user_str: any = localStorage.getItem("currentUser");
 
   function isExpired(key: any) {
     //setIsExpiryUpdate(false);
@@ -56,7 +56,7 @@ const App: React.FC = () => {
     }
     const item = itemStr;
     const now: any = new Date();
-    //console.log("NOW", now.getTime(), "EXPIRY", item);
+    console.log("NOW", now.getTime(), "EXPIRY", item);
     // compare the expiry time of the item with the current time
     if (now.getTime() > item) {
       // If the item is expired, delete the item from storage
@@ -77,8 +77,8 @@ const App: React.FC = () => {
       let location_path = JSON.parse(location_str);
 
       //console.log('isExpired',isExpired('expiry'))
-      let toke_str: any = localStorage.getItem("token");
-      let token = JSON.parse(toke_str);
+      // let toke_str: any = localStorage.getItem("token");
+      // let token = JSON.parse(toke_str);
 
       if (
         (location_path !== "/ionic-listapp/login" ||
@@ -96,7 +96,7 @@ const App: React.FC = () => {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  });
 
   return (
     <IonApp>

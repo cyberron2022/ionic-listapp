@@ -94,7 +94,10 @@ const Login: React.FC = () => {
         onDidDismiss={() => setShowAlert(false)}
         header="Alert"
         subHeader=""
-        message={store.getState().users.errorMessage}
+        message={
+          store.getState().users.errorMessage ||
+          store.getState().users.data.detail
+        }
         buttons={["OK"]}
       />
       <IonPage className={styles.loginPage}>

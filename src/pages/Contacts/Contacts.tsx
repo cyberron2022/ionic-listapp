@@ -89,6 +89,7 @@ const Contacts: React.FC = () => {
       <IonPage>
         <IonFab vertical="bottom" horizontal="end">
           <IonFabButton
+            className="fabButton"
             color="danger"
             routerLink="/ionic-listapp/create-contact"
             routerDirection="forward"

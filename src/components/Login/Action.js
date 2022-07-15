@@ -1,4 +1,4 @@
-import { IonCol, IonLabel, IonRouterLink, IonRow } from "@ionic/react";
+import { IonCol, IonRouterLink, IonRow } from "@ionic/react";
 
 export const Action = (props) => (
   <IonRow className="ion-text-right ">

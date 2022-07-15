@@ -147,8 +147,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
           Object.entries(contacts.errorMessage).map((key: any) => {
             let error = {};
 
-            let id = key[0];
-
             error = {
               id: key[0],
               message: key[1],

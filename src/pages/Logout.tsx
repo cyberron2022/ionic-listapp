@@ -1,23 +1,6 @@
-import {
-  IonBackButton,
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonContent,
-  IonHeader,
-  IonItem,
-  IonItemDivider,
-  IonLabel,
-  IonList,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  NavContext,
-} from "@ionic/react";
+import { NavContext } from "@ionic/react";
 import { useContext, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/actions/users";
 
 function Logout() {
