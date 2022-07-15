@@ -69,10 +69,10 @@ const Register: React.FC = () => {
 
         //console.log("Result", result);
 
-        if (result.type == "REGISTER_SUCCESS") {
+        if (result.type === "REGISTER_SUCCESS") {
           navigate("/login"); //navigate to Home on success
         }
-        if (result.type == "REGISTER_FAIL") {
+        if (result.type === "REGISTER_FAIL") {
           let errors: any = [];
 
           //console.log("STORE ERRORS: ", store.getState().users.errorMessage);

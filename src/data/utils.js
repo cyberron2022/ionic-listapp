@@ -52,7 +52,7 @@ export const validateForm = (fields) => {
         const pattern =
           /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
         const result = pattern.test(fieldValue.trim());
-        if (fieldId == "email" && result === false) {
+        if (fieldId === "email" && result === false) {
           const error = {
             id: field.id,
             message: `Invalid email address`,

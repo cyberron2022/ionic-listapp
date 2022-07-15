@@ -1,3 +1,4 @@
+import { RefresherEventDetail } from "@ionic/core";
 import {
   IonAvatar,
   IonBackButton,
@@ -19,22 +20,19 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { RefresherEventDetail } from "@ionic/core";
 
+import {
+  add,
+  chevronDownCircleOutline,
+  star,
+  starOutline,
+} from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
 import { getContacts } from "../../redux/actions/contact";
 import store from "../../redux/store";
 import "./Contacts.css";
-import {
-  add,
-  chevronDownCircleOutline,
-  navigate,
-  star,
-  starOutline,
-} from "ionicons/icons";
 
 const Contacts: React.FC = () => {
   interface RootState {

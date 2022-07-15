@@ -4,36 +4,26 @@ import {
   IonBackButton,
   IonButton,
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
   IonIcon,
-  IonImg,
   IonItem,
   IonItemDivider,
   IonItemGroup,
   IonLabel,
-  IonList,
   IonLoading,
   IonPage,
   IonRow,
-  IonSpinner,
-  IonText,
-  IonTitle,
-  IonToggle,
   IonToolbar,
   NavContext,
   useIonAlert,
   useIonViewWillEnter,
 } from "@ionic/react";
-import { reload, star, starOutline, trashOutline } from "ionicons/icons";
+import { star, starOutline, trashOutline } from "ionicons/icons";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";

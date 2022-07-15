@@ -1,12 +1,12 @@
 import {
-  SET_USER_INFO,
-  REQUEST_LOGIN,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  USER_LOGOUT,
-  REQUEST_REGISTER,
-  REGISTER_SUCCESS,
   REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  REQUEST_LOGIN,
+  REQUEST_REGISTER,
+  SET_USER_INFO,
+  USER_LOGOUT,
 } from "../types";
 
 let user = localStorage.getItem("currentUser")

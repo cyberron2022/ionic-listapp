@@ -1,10 +1,10 @@
 import {
-  SET_USER_INFO,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  USER_LOGOUT,
-  REGISTER_SUCCESS,
   REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  SET_USER_INFO,
+  USER_LOGOUT,
 } from "../types";
 
 import addexpirytime from "../../data/addexpirytime";

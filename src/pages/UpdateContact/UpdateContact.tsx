@@ -136,12 +136,12 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
 
         console.log("Result", result);
 
-        if (result.type == "UPDATE_CONTACT_SUCCESS") {
+        if (result.type === "UPDATE_CONTACT_SUCCESS") {
           //navigate("/contacts/details/" + result.payload.id); //navigate to Home on success
           history.goBack();
           //setShowAlert(true);
         }
-        if (result.type == "UPDATE_CONTACT_FAIL") {
+        if (result.type === "UPDATE_CONTACT_FAIL") {
           let errors: any = [];
 
           Object.entries(contacts.errorMessage).map((key: any) => {

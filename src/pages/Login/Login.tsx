@@ -1,35 +1,29 @@
 import {
   IonAlert,
   IonButton,
-  IonButtons,
   IonCol,
   IonContent,
   IonFooter,
   IonGrid,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonModal,
+  IonLoading,
   IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
-  IonLoading,
   NavContext,
 } from "@ionic/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
 import { Action } from "../../components/Login/Action";
 import CustomField from "../../components/Login/CustomField";
 import { useLoginFields } from "../../data/fields";
 import { validateForm } from "../../data/utils";
-import { useSelector, useDispatch } from "react-redux";
-import store from "../../redux/store";
 import { loginUser } from "../../redux/actions/users";
+import store from "../../redux/store";
 import styles from "./Login.module.scss";
 import "./style.css";
-import Modal from "../../components/Modal";
 
 const Login: React.FC = () => {
   const params = useParams();
@@ -72,10 +66,10 @@ const Login: React.FC = () => {
 
         console.log("Result", result);
 
-        if (result.type == "LOGIN_SUCCESS") {
+        if (result.type === "LOGIN_SUCCESS") {
           navigate("/ionic-listapp/"); //navigate to Home on success
         }
-        if (result.type == "LOGIN_FAIL") {
+        if (result.type === "LOGIN_FAIL") {
           setShowAlert(true);
         }
       } catch (error) {}
