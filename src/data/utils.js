@@ -9,9 +9,10 @@ export const useFormInput = (initialValue) => {
       const tempValue = await e.currentTarget.value;
       setValue(tempValue);
     }
-    if (e.target.type === "number") {
-      const re = /^[0-9\b]+$/;
-      const tempValue = e.target.value.replace(/\D/g, "");
+    if (e.target.type === "numeric") {
+      //const re = /^[0-9\b]+$/;
+      //const tempValue = e.target.value.replace(/\D/g, "");
+      const tempValue = e.target.value.replace(/[^0-9]/g, "");
       setValue(tempValue);
     }
   };

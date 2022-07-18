@@ -1111,6 +1111,11 @@
   dependencies:
     "tslib" "^2.1.0"
 
+"@capacitor/filesystem@^1.1.0":
+  "integrity" "sha512-8O3UuvL8HNUEJvZnmn8yUmvgB1evtXfcF0oxIo3YbSlylqywJwS3JTiuhKmsvSxCdpbTy8IaTsutVh3gZgWbKg=="
+  "resolved" "https://registry.npmjs.org/@capacitor/filesystem/-/filesystem-1.1.0.tgz"
+  "version" "1.1.0"
+
 "@capacitor/haptics@1.1.4":
   "integrity" "sha512-+pJIb5X7xAcbrWj6rJaV+cwBlv8aFwB1/Ob6EV4atydThuuVSSsAL4hI4ZYlPNOxM6H5s+ZDLj7Pa2os4eFmtg=="
   "resolved" "https://registry.npmjs.org/@capacitor/haptics/-/haptics-1.1.4.tgz"
@@ -1125,6 +1130,11 @@
   "integrity" "sha512-lhxa70K6vg0QjdddbT9RqFLfQ9a0Fk1OVE54MhUH30DWymv4h2LrC+mJgH6JS46WQbR2UCHRymfmVCq1PS2Qiw=="
   "resolved" "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-1.0.8.tgz"
   "version" "1.0.8"
+
+"@capacitor/storage@^1.2.5":
+  "integrity" "sha512-pWhnw4U7wN/zFV4lA4BLMypSufTktCbk548Yk4whSb0KAq3R0mLfSubRIHkGdcPqQWCsM6g/zUuszurhz6ncWQ=="
+  "resolved" "https://registry.npmjs.org/@capacitor/storage/-/storage-1.2.5.tgz"
+  "version" "1.2.5"
 
 "@csstools/normalize.css@*":
   "integrity" "sha512-M0qqxAcwCsIVfpFQSlGN5XjXWu8l5JDZN+fPt1LeW5SZexQTgnaEvgXAY+CeygRw0EeppWHi12JxESWiWrB0Sg=="
