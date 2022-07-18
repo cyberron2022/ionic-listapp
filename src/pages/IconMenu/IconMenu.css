@@ -38,6 +38,6 @@ ion-label {
     --border-color: lightgray;
     border-style: ridge;
     box-shadow: 4px 4px #888888;
-    //border-radius: 10%;
+    /* //border-radius: 10%; */
     border-width: 2px;
 }

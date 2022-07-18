@@ -7,6 +7,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonItemDivider,
   IonLabel,
@@ -18,6 +19,7 @@ import {
   IonToolbar,
   NavContext,
 } from "@ionic/react";
+import { chevronForwardOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import isLgggedIn from "../components/Login/isLoggedIn";
 
@@ -185,6 +187,20 @@ function Settings() {
                       </IonText>
                     </IonCol>
                   </IonRow>
+                )}
+                {item.title === "Sort by" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "end",
+                      flexFlow: "column nowrap",
+                      marginTop: -32,
+                      marginRight: -5,
+                      height: "35px",
+                    }}
+                  >
+                    <IonIcon icon={chevronForwardOutline}></IonIcon>
+                  </div>
                 )}
               </IonGrid>
             </IonItem>
