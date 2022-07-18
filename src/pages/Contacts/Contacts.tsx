@@ -38,7 +38,7 @@ const Contacts: React.FC = () => {
   interface RootState {
     contacts: any;
   }
-
+  const sortBy: any = localStorage.getItem("sortBy");
   const [nameSearch, setNameSearch] = useState(null as any);
 
   const setSearchInput = (ev: any) => {
@@ -124,6 +124,24 @@ const Contacts: React.FC = () => {
           <IonList>
             {contacts.getContacts?.data.length !== 0 ? (
               contacts.getContacts?.data
+                .sort((a: any, b: any) => {
+                  if (sortBy === "First Name") {
+                    if (
+                      b.first_name.toLowerCase() > a.first_name.toLowerCase()
+                    ) {
+                      return -1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                  if (sortBy === "Last Name") {
+                    if (b.last_name.toLowerCase() > a.last_name.toLowerCase()) {
+                      return -1;
+                    } else {
+                      return 1;
+                    }
+                  }
+                })
                 .filter(
                   (item: any) =>
                     item.first_name

@@ -9,6 +9,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonLoading,
   IonPage,
   IonRow,
@@ -36,6 +37,7 @@ import {
 import styles from "./UpdateContact.module.scss";
 
 import supabase from "../../supabase-client";
+import { camera } from "ionicons/icons";
 
 interface ContactDetailPageProps
   extends RouteComponentProps<{
@@ -188,7 +190,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
 
       setTimeout(() => {
         setIsUpload(false);
-      }, 1500);
+      }, 1000);
     }
 
     return true;
@@ -282,7 +284,8 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
                   color="secondary"
                   onClick={takePicture}
                 >
-                  Upload Photo
+                  <IonIcon slot="start" icon={camera} />
+                  Take Picture
                 </IonButton>
               </IonCol>
             </IonRow>

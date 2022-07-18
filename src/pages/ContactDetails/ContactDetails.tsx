@@ -51,7 +51,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
   const [showAlert, setShowAlert] = useState(false);
   const [presentAlert] = useIonAlert();
 
-  const { navigate } = useContext(NavContext);
+  // const { navigate } = useContext(NavContext);
   const selectContacts = (state: RootState) => state.contacts;
   const contacts = useSelector(selectContacts);
   const { getContactsDetail } = contacts; // GET State from REDUX STORE

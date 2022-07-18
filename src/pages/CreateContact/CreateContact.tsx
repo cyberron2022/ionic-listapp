@@ -8,6 +8,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonImg,
   IonLoading,
   IonPage,
@@ -29,6 +30,7 @@ import { createContact } from "../../redux/actions/contact";
 import styles from "./CreateContact.module.scss";
 
 import supabase from "../../supabase-client";
+import { camera } from "ionicons/icons";
 const CreateContact: React.FC = () => {
   const history = useHistory();
   const params = useParams();
@@ -45,6 +47,7 @@ const CreateContact: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [imagePath, setImagePath] = useState<any>("");
+
   useEffect(() => {
     // console.log("SESSION", supabase.auth.session());
 
@@ -237,7 +240,8 @@ const CreateContact: React.FC = () => {
                   color="secondary"
                   onClick={takePicture}
                 >
-                  Upload Photo
+                  <IonIcon slot="start" icon={camera} />
+                  Take Picture
                 </IonButton>
               </IonCol>
             </IonRow>

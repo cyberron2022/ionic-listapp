@@ -1,4 +1,4 @@
-import { personCircleOutline,settingsOutline,logOutOutline,peopleOutline, globeOutline } from 'ionicons/icons'
+import { personCircleOutline,settingsOutline,logOutOutline,peopleOutline, globeOutline, gridOutline } from 'ionicons/icons'
 
 export default [
   {
@@ -23,6 +23,13 @@ export default [
     'color': '#0CA9EA'
   },
   {
+    'title': 'Icon Menu',
+    'icon': gridOutline,
+    'link': '/ionic-listapp/iconmenu',
+    'description': 'Sample Icon Menu',
+    'color': '#0CA9EA'
+  },
+  {
     'title': 'Test Page',
     'icon': globeOutline,
     'link': '/ionic-listapp/testpage',
@@ -36,5 +43,4 @@ export default [
     'description': 'Sign out user',
     'color': '#0CA9EA'
   },
-  
 ];

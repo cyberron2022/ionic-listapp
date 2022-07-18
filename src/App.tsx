@@ -41,6 +41,7 @@ import Logout from "./pages/Logout";
 import Register from "./pages/Register/Register";
 import TestPage from "./pages/TestPage";
 import UpdateContact from "./pages/UpdateContact/UpdateContact";
+import IconMenu from "./pages/IconMenu/IconMenu";
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -56,7 +57,7 @@ const App: React.FC = () => {
     }
     const item = itemStr;
     const now: any = new Date();
-    console.log("NOW", now.getTime(), "EXPIRY", item);
+    //console.log("NOW", now.getTime(), "EXPIRY", item);
     // compare the expiry time of the item with the current time
     if (now.getTime() > item) {
       // If the item is expired, delete the item from storage
@@ -142,6 +143,11 @@ const App: React.FC = () => {
             exact
             path="/ionic-listapp/signup"
             component={Register}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/iconmenu"
+            component={IconMenu}
           ></Route>
           <Route exact path="/ionic-listapp/logout" component={Logout}></Route>
           <Route

@@ -3,30 +3,30 @@ import { useState } from "react";
 export const useFormInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
-  //const handleChange = async (e) => {
-  // const tempValue = e.target.value.replace(/\D/g, "");
-  // setValue(tempValue);
-  // const re = /^[0-9\b]+$/;
-  // console.log("change", re.test(e.target.value));
-  // if (re.test(e.target.value)) {
-  //   console.log("true");
+  const handleChange = async (e) => {
+    //console.log(e.target.type);
+    if (e.target.type === "text" || e.target.type === "password") {
+      const tempValue = await e.currentTarget.value;
+      setValue(tempValue);
+    }
+    if (e.target.type === "number") {
+      const re = /^[0-9\b]+$/;
+      const tempValue = e.target.value.replace(/\D/g, "");
+      setValue(tempValue);
+    }
+  };
+
+  // const handleChange = async (e) => {
   //   const tempValue = await e.currentTarget.value;
   //   setValue(tempValue);
-  // } else {
-  //   console.log("false");
-  // }
-  //};
-
-  const handleChange = async (e) => {
-    const tempValue = await e.currentTarget.value;
-    setValue(tempValue);
-  };
+  // };
 
   return {
     value,
     reset: (newValue) => setValue(newValue),
     onIonChange: handleChange,
     onKeyUp: handleChange,
+    oninput: (e) => setValue(e.target.value),
   };
 };
 

@@ -126,7 +126,7 @@ export const useContactFields = () => {
       required: true,
       input: {
         props: {
-          type: "text",
+          type: "number",
           placeholder: "09191234567",
           maxlength: 11,
         },
@@ -168,7 +168,7 @@ export const useUpdateContactFields = () => {
       required: true,
       input: {
         props: {
-          type: "text",
+          type: "number",
           placeholder: "09191234567",
           maxlength: 11,
         },

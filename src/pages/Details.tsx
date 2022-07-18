@@ -70,11 +70,8 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
+            <IonLabel>Back</IonLabel>
           </IonButtons>
-          <IonLabel>Back</IonLabel>
-          {/* <IonTitle>
-            {user?.name.title} {user?.name.first} {user?.name.last}
-          </IonTitle> */}
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

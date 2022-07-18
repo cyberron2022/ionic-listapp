@@ -1,0 +1,43 @@
+
+.menu-btn{
+    height:82px;
+    --border-color: lightgray;
+    --border-style: ridge;
+    --box-shadow: 4px 4px #888888;
+    --border-radius: 10%;
+    --border-width: 2px;
+    
+}
+
+.cash-in-btn{
+   
+    --border-color: lightgray;
+    --border-style: ridge;
+    --box-shadow: 4px 4px #888888;
+    --border-radius: 10%;
+    --border-width: 2px;
+    
+}
+
+ion-icon {
+    color: primary;
+}
+ion-label {
+    margin-top: 10px;
+    color: primary;
+}
+
+.button-wrapper{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center
+                    
+}
+
+.card-wrapper{
+    --border-color: lightgray;
+    border-style: ridge;
+    box-shadow: 4px 4px #888888;
+    //border-radius: 10%;
+    border-width: 2px;
+}

@@ -29,6 +29,7 @@ export async function loginUser(loginPayload, location_path) {
       //dispatch({ type: LOGIN_SUCCESS, payload: data });
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem("token", JSON.stringify(data.token));
+      localStorage.setItem("sortBy", "Last name");
       // ADD EXPIRY TO LOCAL STORAGE
       addexpirytime(location_path);
       return { type: LOGIN_SUCCESS, payload: data };
@@ -75,5 +76,6 @@ export async function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("expiry");
   localStorage.removeItem("location_path");
+  localStorage.removeItem("sortBy");
   return { type: USER_LOGOUT, payload: "" };
 }
