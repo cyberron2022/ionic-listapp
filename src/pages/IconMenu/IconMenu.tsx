@@ -57,7 +57,9 @@ const IconMenu: React.FC = () => {
             <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
           </IonButtons>
 
-          <IonTitle>Pera Padala</IonTitle>
+          <IonTitle className="ion-text-center" style={{ marginRight: "30px" }}>
+            Money Remittance
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
