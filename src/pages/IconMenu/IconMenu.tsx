@@ -20,6 +20,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  NavContext,
 } from "@ionic/react";
 import {
   add,
@@ -36,9 +37,18 @@ import {
   storefrontOutline,
   walletOutline,
 } from "ionicons/icons";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import isLgggedIn from "../../components/Login/isLoggedIn";
+
 import "./IconMenu.css";
 const IconMenu: React.FC = () => {
+  const { navigate } = useContext(NavContext);
+  useEffect(() => {
+    if (isLgggedIn()) {
+      navigate("/ionic-listapp/login");
+    }
+  }, []);
+
   return (
     <IonPage>
       <IonHeader translucent>
