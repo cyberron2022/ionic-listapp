@@ -39,7 +39,7 @@ import Contacts from "./pages/Contacts/Contacts";
 import CreateContact from "./pages/CreateContact/CreateContact";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register/Register";
-import TestPage from "./pages/TestPage";
+import GoogleMaps from "./pages/GoogleMaps/GoogleMaps";
 import UpdateContact from "./pages/UpdateContact/UpdateContact";
 import IconMenu from "./pages/IconMenu/IconMenu";
 setupIonicReact();
@@ -156,8 +156,8 @@ const App: React.FC = () => {
             component={ErrorPage}
           ></Route>
           <Route component={Home}></Route>
-          <Route exact path="/ionic-listapp/testpage">
-            <TestPage></TestPage>
+          <Route exact path="/ionic-listapp/googlemap">
+            <GoogleMaps></GoogleMaps>
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

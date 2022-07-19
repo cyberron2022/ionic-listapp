@@ -15,6 +15,7 @@
     "@ionic/pwa-elements": "^3.1.1",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
+    "@react-google-maps/api": "^2.12.1",
     "@supabase/supabase-js": "^1.35.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",

@@ -30,10 +30,10 @@ export default [
     'color': '#0CA9EA'
   },
   {
-    'title': 'Test Page',
+    'title': 'Google Map',
     'icon': globeOutline,
-    'link': '/ionic-listapp/testpage',
-    'description': 'For development purposes',
+    'link': '/ionic-listapp/googlemap',
+    'description': 'Google Map Project',
     'color': '#0CA9EA'
   },
   {

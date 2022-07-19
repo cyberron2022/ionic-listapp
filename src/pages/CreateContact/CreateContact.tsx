@@ -121,7 +121,7 @@ const CreateContact: React.FC = () => {
 
     const filename = path.substring(path.lastIndexOf("/") + 1);
     const { data, error } = await supabase.storage
-      .from("image-bucket") //Created STORATE NAME in supabase.com account
+      .from("image-bucket") //Created STORAGE NAME in supabase.com account
       .upload(`public/${filename}`, blob, {
         cacheControl: "3600",
         upsert: false,
