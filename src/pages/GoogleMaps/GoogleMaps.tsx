@@ -1,4 +1,5 @@
 import {
+  IonAlert,
   IonBackButton,
   IonButton,
   IonButtons,
@@ -46,12 +47,13 @@ const GoogleMaps: React.FC<{}> = (Props) => {
     libraries: libraries,
   });
   const [showDrive, setShowDrive] = useState(true);
-  const [showSearchModal, setshowSearchModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [map, setMap] = useState<google.maps.Map>();
+
   const [directionResponse, setdirectionResponse] = useState(null);
   const [duration, setDuration] = useState("");
   const [distance, setDistance] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
   const originRef: any = useRef<HTMLInputElement>();
   const destinationRef: any = useRef<HTMLInputElement>();
 
@@ -75,15 +77,23 @@ const GoogleMaps: React.FC<{}> = (Props) => {
       return;
     }
     const directionsService = new google.maps.DirectionsService();
-    const results: any = await directionsService.route({
-      origin: originRef.current.value,
-      destination: destinationRef.current.value,
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
-
-    setdirectionResponse(results);
-    setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
+    await directionsService
+      .route({
+        origin: originRef.current.value,
+        destination: destinationRef.current.value,
+        travelMode: google.maps.TravelMode.DRIVING,
+      })
+      .then((result: any) => {
+        setdirectionResponse(result);
+        setDistance(result.routes[0].legs[0].distance.text);
+        setDuration(result.routes[0].legs[0].duration.text);
+      })
+      .catch((error) => {
+        setErrorMessage(
+          error.message.replace("DIRECTIONS_ROUTE: ZERO_RESULTS: ", "")
+        );
+        setShowAlert(true);
+      });
   }
   function clearRoute() {
     setdirectionResponse(null);
@@ -95,6 +105,14 @@ const GoogleMaps: React.FC<{}> = (Props) => {
 
   return (
     <IonPage>
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        header="Alert"
+        subHeader=""
+        message={errorMessage}
+        buttons={["OK"]}
+      />
       <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">
@@ -225,7 +243,10 @@ const GoogleMaps: React.FC<{}> = (Props) => {
                       <IonButton
                         size="small"
                         className="ion-text-capitalize"
-                        onClick={() => map?.panTo(center)}
+                        onClick={() => {
+                          map?.panTo(center);
+                          map?.setZoom(15);
+                        }}
                       >
                         <IonIcon icon={navigateOutline}></IonIcon>
                       </IonButton>
