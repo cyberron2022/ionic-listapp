@@ -42,6 +42,7 @@ import Register from "./pages/Register/Register";
 import GoogleMaps from "./pages/GoogleMaps/GoogleMaps";
 import UpdateContact from "./pages/UpdateContact/UpdateContact";
 import IconMenu from "./pages/IconMenu/IconMenu";
+import Games from "./pages/Games/Games";
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -158,6 +159,9 @@ const App: React.FC = () => {
           <Route component={Home}></Route>
           <Route exact path="/ionic-listapp/googlemap">
             <GoogleMaps></GoogleMaps>
+          </Route>
+          <Route exact path="/ionic-listapp/games">
+            <Games></Games>
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

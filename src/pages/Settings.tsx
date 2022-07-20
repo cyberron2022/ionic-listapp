@@ -21,7 +21,7 @@ import {
 } from "@ionic/react";
 import { chevronForwardOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
-import isLgggedIn from "../components/Login/isLoggedIn";
+import isLoggedIn from "../components/Login/isLoggedIn";
 
 function Settings() {
   const { navigate } = useContext(NavContext);
@@ -112,7 +112,7 @@ function Settings() {
   };
 
   useEffect(() => {
-    if (isLgggedIn()) {
+    if (isLoggedIn()) {
       navigate("/ionic-listapp/login");
     } else {
       getSettings();

@@ -1,4 +1,4 @@
-import { personCircleOutline,settingsOutline,logOutOutline,peopleOutline, globeOutline, gridOutline } from 'ionicons/icons'
+import { personCircleOutline,settingsOutline,logOutOutline,peopleOutline, globeOutline, gridOutline, gameControllerOutline } from 'ionicons/icons'
 
 export default [
   {
@@ -27,6 +27,13 @@ export default [
     'icon': gridOutline,
     'link': '/ionic-listapp/iconmenu',
     'description': 'Sample Icon Menu',
+    'color': '#0CA9EA'
+  },
+  {
+    'title': 'Game List',
+    'icon': gameControllerOutline,
+    'link': '/ionic-listapp/games',
+    'description': 'Free to play games',
     'color': '#0CA9EA'
   },
   {

@@ -1,0 +1,60 @@
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 !important;
+    background-color:white; 
+    box-shadow: none;
+}
+.desc-wrapper {
+    display: flex;
+    flex-direction:column;
+    margin-left: 15px !important;
+    background-color:white; 
+    box-shadow: none;
+}
+
+.img {
+    margin:0 !important;
+    padding: 0 !important;
+    width:  120px;
+    height: 100%;
+    object-fit: cover;  
+    object-position: 50% 50%;
+}
+.title {
+    font-size:10px;
+    font-weight: 800;
+}
+.genre {
+    margin-top:5px;
+    font-size:8px;
+    font-weight: 400;
+    text-align:justify;
+}
+.description {
+    margin-top:5px;
+    font-size:8px;
+    font-weight: 400;
+    text-align:justify;
+}
+.platform {
+    margin-top:8px;
+    font-size:8px;
+    font-weight: 400;
+    text-align:justify;
+}
+.platform-logo {
+    margin-top:-15px;
+    position:relative;
+    left:30px 
+}
+img {
+    width:100px;
+}
+ion-card:hover {
+    /* background-color: slategray; */
+    /* box-shadow: inset 0px 0px 0px 1px red; */
+    opacity: 0.5;
+   
+}    
