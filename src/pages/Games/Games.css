@@ -5,6 +5,7 @@
     margin: 0 !important;
     background-color:white; 
     box-shadow: none;
+    text-decoration: none;
 }
 .desc-wrapper {
     display: flex;
