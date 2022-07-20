@@ -77,7 +77,7 @@ const Games: React.FC = () => {
       getList();
       console.log("end");
       event.detail.complete();
-    }, 2000);
+    }, 1000);
   }
   function callLogo(platform: any) {
     if (platform === "PC (Windows)") {
@@ -163,24 +163,22 @@ const Games: React.FC = () => {
                     to={{ pathname: item.game_url }}
                     target="_blank"
                   >
-                    <IonCard key={index}>
+                    <IonCard key={index} className="game-cardlist">
+                      <img className="img" src={item.thumbnail} />
                       <IonCardContent>
                         <div className="content-wrapper">
-                          <img className="img" src={item.thumbnail} />
-
                           <div className="desc-wrapper">
                             <div className="title">
                               <span>{item.title}</span>
                             </div>
                             <div className="genre">Genre: {item.genre}</div>
-                            <div className="platform">Platform:</div>
-                            <div className="platform-logo">
-                              {callLogo(item.platform)}
+                            <div className="platform">
+                              Platform: {item.platform}{" "}
+                              {/* {callLogo(item.platform)} */}
                             </div>
                           </div>
                         </div>
                         <div className="description">
-                          Description:
                           {item.short_description}
                         </div>
                       </IonCardContent>
