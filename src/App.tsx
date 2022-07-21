@@ -49,8 +49,9 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const { navigate } = useContext(NavContext);
+
   const [showAlert, setShowAlert] = useState(false);
-  //const user_str: any = localStorage.getItem("currentUser");
+
   const history = useHistory();
   function isExpired(key: any) {
     //setIsExpiryUpdate(false);
@@ -61,7 +62,7 @@ const App: React.FC = () => {
     }
     const item = itemStr;
     const now: any = new Date();
-    //console.log("NOW", now.getTime(), "EXPIRY", item);
+    console.log("NOW", now.getTime(), "EXPIRY", item);
     // compare the expiry time of the item with the current time
     if (now.getTime() > item) {
       // If the item is expired, delete the item from storage
@@ -88,7 +89,8 @@ const App: React.FC = () => {
 
       if (
         (location_path !== "/ionic-listapp/login" ||
-          location_path !== "/ionic-listapp/logout") &&
+          location_path !== "/ionic-listapp/logout" ||
+          location_path !== "/ionic-listapp/") &&
         location_path === null
       ) {
         setShowAlert(true);
