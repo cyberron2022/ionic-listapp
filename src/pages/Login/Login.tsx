@@ -69,7 +69,7 @@ const Login: React.FC = () => {
         console.log("Result", result);
 
         if (result.type === "LOGIN_SUCCESS") {
-          history.push("/ionic-listapp/"); //navigate to Home on success
+          history.push("/ionic-listapp/home"); //navigate to Home on success
         }
         if (result.type === "LOGIN_FAIL") {
           setShowAlert(true);

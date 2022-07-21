@@ -1,7 +1,7 @@
 import { IonAlert, IonApp, NavContext, setupIonicReact } from "@ionic/react";
 
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import store from "./redux/store";
 
 /* Core CSS required for Ionic components to work properly */
@@ -33,65 +33,70 @@ const App: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const history = useHistory();
-  function isExpired(key: any) {
-    //setIsExpiryUpdate(false);
-    const itemStr = localStorage.getItem("expiry");
-    // if the item doesn't exist, return null
-    if (!itemStr) {
-      return false;
-    }
+  // function isExpired(key: any) {
+  //   //setIsExpiryUpdate(false);
+  //   const itemStr = localStorage.getItem("expiry");
+  //   // if the item doesn't exist, return null
+  //   if (!itemStr) {
+  //     return false;
+  //   }
 
-    const item = itemStr;
-    const now: any = new Date();
-    console.log("NOW", now.getTime(), "EXPIRY", item);
-    // compare the expiry time of the item with the current time
-    if (now.getTime() > item) {
-      // If the item is expired, delete the item from storage
-      // and return null
-      localStorage.removeItem("currentUser");
-      localStorage.removeItem("token");
-      localStorage.removeItem("expiry");
-      localStorage.removeItem("location_path");
-      //localStorage.removeItem(key)
-      return true;
-    }
-    return false;
-  }
+  //   const item = itemStr;
+  //   const now: any = new Date();
+  //   console.log("NOW", now.getTime(), "EXPIRY", item);
+  //   // compare the expiry time of the item with the current time
+  //   if (now.getTime() > item) {
+  //     // If the item is expired, delete the item from storage
+  //     // and return null
+  //     localStorage.removeItem("currentUser");
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("expiry");
+  //     localStorage.removeItem("location_path");
+  //     //localStorage.removeItem(key)
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
-  useEffect(() => {
-    let timer = setInterval(() => {
-      let location_str: any = localStorage.getItem("location_path");
-      let location_path = JSON.parse(location_str);
-      let user_str: any = localStorage.getItem("currentUser");
-      let currentUser = JSON.parse(user_str);
-      //console.log('isExpired',isExpired('expiry'))
-      // let toke_str: any = localStorage.getItem("token");
-      // let token = JSON.parse(toke_str);
+  // useEffect(() => {
+  //   let timer = setInterval(() => {
+  //     let location_str: any = localStorage.getItem("location_path");
+  //     let location_path = JSON.parse(location_str);
+  //     let user_str: any = localStorage.getItem("currentUser");
+  //     let currentUser = JSON.parse(user_str);
+  //     //console.log('isExpired',isExpired('expiry'))
+  //     // let toke_str: any = localStorage.getItem("token");
+  //     // let token = JSON.parse(toke_str);
 
-      // if (
-      //   (location_path !== "/ionic-listapp/login" ||
-      //     location_path !== "/ionic-listapp/logout" ||
-      //     location_path !== "/ionic-listapp/locked") &&
-      //   location_path === null
-      // ) {
-      //   //setShowAlert(true);
-      // }
+  //     // if (
+  //     //   (location_path !== "/ionic-listapp/login" ||
+  //     //     location_path !== "/ionic-listapp/logout" ||
+  //     //     location_path !== "/ionic-listapp/locked") &&
+  //     //   location_path === null
+  //     // ) {
+  //     //   //setShowAlert(true);
+  //     // }
 
-      if (isExpired("expiry")) {
-        setShowAlert(true);
-      }
-    }, 1000);
+  //     if (isExpired("expiry")) {
+  //       setShowAlert(true);
+  //     }
+  //   }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  });
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // });
 
   // useEffect(() => {
   //   if (isLoggedIn()) {
   //     navigate("/ionic-listapp/login");
   //   }
   // }, []);
+
+  // const redirectToLogin = () => {
+  //   //return <Redirect to="/ionic-listapp/locked" />;
+  //   history.push("/ionic-listapp/locked");
+  // };
 
   return (
     <IonApp>
@@ -105,10 +110,8 @@ const App: React.FC = () => {
           {
             text: "OK",
             role: "confirm",
-            handler: async () => {
+            handler: () => {
               setShowAlert(false);
-              await store.dispatch({ type: "USER_LOGOUT" });
-              navigate("/ionic-listapp/locked");
             },
           },
         ]}

@@ -1,7 +1,7 @@
 import React from "react";
 import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import ErrorPage from "./pages/ErrorPage";
@@ -27,7 +27,12 @@ const RouteForm: React.FC = () => {
         <Menu />
         <IonRouterOutlet id="main">
           <Switch>
-            <Route exact path="/ionic-listapp/home" component={Home}></Route>
+            <Route
+              exact
+              path="/ionic-listapp/home"
+              component={() => <Home />}
+            />
+
             <Route exact path="/ionic-listapp/" component={Home}></Route>
             <Route
               exact

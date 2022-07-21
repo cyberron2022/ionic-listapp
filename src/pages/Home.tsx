@@ -18,9 +18,11 @@ import addexpirytime from "../data/addexpirytime";
 import { useHistory } from "react-router";
 import menulist from "../menu";
 import "./Home.css";
+import { checkSession } from "../components/CheckSession";
 
 const Home: React.FC = () => {
   //const { navigate } = useContext(NavContext);
+
   const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -49,6 +51,21 @@ const Home: React.FC = () => {
       history.push("/ionic-listapp/login");
     }
   }, []);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      let session = checkSession();
+      console.log("Session:", session);
+      if (session === false) {
+        console.log("REDIRECT TO LOGIN");
+        history.push("/ionic-listapp/login");
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   return (
     <IonPage>
