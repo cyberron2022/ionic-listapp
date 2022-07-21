@@ -42,12 +42,6 @@ const Login: React.FC = () => {
   const users = useSelector(selectUsers);
   // const dispatch = useDispatch();
 
-  let location = useLocation<any>();
-
-  useEffect(() => {
-    localStorage.setItem("location_path", JSON.stringify(location.pathname));
-  });
-
   const login = async () => {
     const errors = validateForm(fields);
     setErrors(errors);
@@ -59,17 +53,13 @@ const Login: React.FC = () => {
         password: fields[1].input.state.value,
       };
 
-      let location_path = location.pathname;
       try {
-        //dispatch({ type: "REQUEST_LOGIN", payload: "" });
-
-        //const result = dispatch(await loginUser(payload, location_path));
-        const result = await loginUser(payload, location_path);
+        const result = await loginUser(payload);
 
         console.log("Result", result);
 
         if (result.type === "LOGIN_SUCCESS") {
-          history.push("/ionic-listapp/home"); //navigate to Home on success
+          history.push("/ionic-listapp/"); //navigate to Home on success
         }
         if (result.type === "LOGIN_FAIL") {
           setShowAlert(true);

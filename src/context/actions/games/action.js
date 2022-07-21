@@ -2,7 +2,7 @@ import { GAME_LIST_SUCCESS, GAME_LIST_FAIL } from "../../../redux/types";
 
 import addexpirytime from "../../../data/addexpirytime";
 
-export async function getGamelist(location_path) {
+export async function getGamelist() {
   const ROOT_URL =
     "https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=alphabetical";
   const requestOptions = {
@@ -18,7 +18,7 @@ export async function getGamelist(location_path) {
   try {
     let response = await fetch(`${ROOT_URL}`, requestOptions);
     let data = await response.json();
-    addexpirytime(location_path);
+    addexpirytime();
 
     return { type: GAME_LIST_SUCCESS, payload: data };
     //dispatch({ type: GAME_LIST_SUCCESS, payload: data });

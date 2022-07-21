@@ -23,7 +23,7 @@ import { chevronForwardOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import isLoggedIn from "../components/Login/isLoggedIn";
-
+import store from "../redux/store";
 function Settings() {
   //const { navigate } = useContext(NavContext);
   const history = useHistory();
@@ -34,6 +34,17 @@ function Settings() {
   const saveSettings = (key: any, value: any) => {
     localStorage.setItem(key, value);
   };
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   const data = [
     {

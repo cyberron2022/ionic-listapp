@@ -3,7 +3,7 @@
 //     return this;
 // };
 
-function addexpirytime(location_path) {
+function addexpirytime() {
   /////// ADD HOURS
   // let NewDate = new Date();
   // NewDate = NewDate.addHours(1);
@@ -17,7 +17,8 @@ function addexpirytime(location_path) {
   NewDate = new Date(NewDate.getTime() + minutesToAdd * 60000);
   localStorage.removeItem("expiry");
   localStorage.setItem("expiry", JSON.stringify(NewDate.getTime()));
-  localStorage.setItem("location_path", JSON.stringify(location_path));
+  //localStorage.setItem("location_path", location.location_path);
+  //localStorage.setItem("location_path", JSON.stringify());
 }
 
 export default addexpirytime;

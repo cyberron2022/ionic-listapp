@@ -15,7 +15,7 @@ export function setUserInfo(payload) {
   return { type: SET_USER_INFO, payload: payload };
 }
 
-export async function loginUser(loginPayload, location_path) {
+export async function loginUser(loginPayload) {
   const ROOT_URL = "https://truly-contacts.herokuapp.com/api/auth";
   const requestOptions = {
     method: "POST",
@@ -33,7 +33,7 @@ export async function loginUser(loginPayload, location_path) {
       localStorage.setItem("token", JSON.stringify(data.token));
       localStorage.setItem("sortBy", "Last name");
       // ADD EXPIRY TO LOCAL STORAGE
-      addexpirytime(location_path);
+      addexpirytime();
       let result = await store.dispatch({ type: LOGIN_SUCCESS, payload: data });
 
       return { type: LOGIN_SUCCESS, payload: data };
@@ -49,7 +49,7 @@ export async function loginUser(loginPayload, location_path) {
   }
 }
 
-export async function registerUser(payload, location_path) {
+export async function registerUser(payload) {
   const ROOT_URL = "https://truly-contacts.herokuapp.com/api/auth";
   const requestOptions = {
     method: "POST",
@@ -82,7 +82,6 @@ export async function logout() {
   localStorage.removeItem("currentUser");
   localStorage.removeItem("token");
   localStorage.removeItem("expiry");
-  localStorage.removeItem("location_path");
   localStorage.removeItem("sortBy");
   await store.dispatch({ type: USER_LOGOUT });
   return { type: USER_LOGOUT };

@@ -22,7 +22,7 @@ import {
 } from "@ionic/react";
 import { star, starOutline, trashOutline } from "ionicons/icons";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
@@ -34,6 +34,7 @@ import {
 } from "../../redux/actions/contact";
 
 import "./ContactDetails.css";
+import store from "../../redux/store";
 
 interface ContactDetailPageProps
   extends RouteComponentProps<{
@@ -57,17 +58,29 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
 
   const paramID = match.url.replace("/ionic-listapp/contacts/details/", "");
 
-  useIonViewWillEnter(async () => {
-    let location_str: any = localStorage.getItem("location_path");
-    let location_path = JSON.parse(location_str);
+  useIonViewWillEnter(() => {
+    const loadContactDetail = async () => {
+      const result: any = await getContactsDetailByID(paramID);
+      if (!result.payload?.detail) {
+        setHasError(false);
+      } else {
+        setHasError(true);
+        setShowAlert(true);
+      }
+    };
+    loadContactDetail();
+  });
 
-    const result: any = await getContactsDetailByID(paramID, location_path);
-    if (!result.payload?.detail) {
-      setHasError(false);
-    } else {
-      setHasError(true);
-      setShowAlert(true);
-    }
+  useEffect(() => {
+    let timer = setInterval(() => {
+      console.log("ContactDetails");
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   const setHandlerDeleteOk = () => {
@@ -75,7 +88,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
 
-      const result: any = await deleteContactByID(paramID, location_path);
+      const result: any = await deleteContactByID(paramID);
     };
     delContacts();
     history.goBack();
@@ -98,11 +111,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
         is_favorite: !data?.is_favorite,
       };
 
-      const response: any = await updateContactByID(
-        payload,
-        paramID,
-        location_path
-      );
+      const response: any = await updateContactByID(payload, paramID);
 
       //setData(response.payload);
     };
@@ -143,7 +152,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
         <IonHeader translucent>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
+              <IonBackButton defaultHref="/ionic-listapp/"></IonBackButton>
             </IonButtons>
             <IonLabel>Back</IonLabel>
             <IonButtons slot="end" className="">

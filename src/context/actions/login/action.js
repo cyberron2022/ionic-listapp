@@ -19,7 +19,7 @@ export async function loginUser(dispatch, loginPayload, location_path) {
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem("token", JSON.stringify(data.token));
       // ADD EXPIRY TO LOCAL STORAGE
-      addexpirytime(location_path);
+      addexpirytime();
 
       return data;
     } else {

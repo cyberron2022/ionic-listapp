@@ -29,6 +29,8 @@ import { createContact, takePicture } from "../../redux/actions/contact";
 import styles from "./CreateContact.module.scss";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 import { camera } from "ionicons/icons";
+import store from "../../redux/store";
+
 const CreateContact: React.FC = () => {
   const history = useHistory();
   const params = useParams();
@@ -46,6 +48,7 @@ const CreateContact: React.FC = () => {
   const [isUpload, setIsUpload] = useState(false);
   const [imagePath, setImagePath] = useState<any>("");
   const [loadingMessage, setLoadingMessage] = useState<any>("");
+
   useEffect(() => {
     if (isLoggedIn()) {
       history.push("/ionic-listapp/login");
@@ -53,6 +56,17 @@ const CreateContact: React.FC = () => {
       setImagePath(null);
     }
   }, []);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   useEffect(() => {
     // console.log("SESSION", supabase.auth.session());
@@ -64,10 +78,6 @@ const CreateContact: React.FC = () => {
   }, [params]);
 
   let location = useLocation<any>();
-
-  useEffect(() => {
-    localStorage.setItem("location_path", JSON.stringify(location.pathname));
-  });
 
   const createHandlerBtn = async () => {
     const errors = validateForm(fields);
@@ -84,7 +94,7 @@ const CreateContact: React.FC = () => {
 
       let location_path = location.pathname;
       try {
-        const result = await createContact(payload, location_path);
+        const result = await createContact(payload);
 
         if (result.type === "CREATE_CONTACT_SUCCESS") {
           //navigate("/contacts/details/" + result.payload.id); //navigate to Home on success

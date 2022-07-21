@@ -33,7 +33,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
 import { getContacts } from "../../redux/actions/contact";
+import isLoggedIn from "../../components/Login/isLoggedIn";
+import addexpirytime from "../../data/addexpirytime";
+import { useHistory } from "react-router";
 import store from "../../redux/store";
+
 import "./Contacts.css";
 
 const Contacts: React.FC = () => {
@@ -43,6 +47,17 @@ const Contacts: React.FC = () => {
   const sortBy: any = localStorage.getItem("sortBy");
   const [nameSearch, setNameSearch] = useState(null as any);
 
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
   const setSearchInput = (ev: any) => {
     setNameSearch(ev.detail);
   };
@@ -50,8 +65,14 @@ const Contacts: React.FC = () => {
   const selectContacts = (state: RootState) => state.contacts;
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const contactState: any = store.getState().contacts;
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
+    }
+  }, []);
 
   useEffect(() => {
     loadContacts();
@@ -61,7 +82,7 @@ const Contacts: React.FC = () => {
     const autoLoad = async () => {
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
-      const response: any = await getContacts(location_path);
+      const response: any = await getContacts();
       //setData(response.payload);
     };
 

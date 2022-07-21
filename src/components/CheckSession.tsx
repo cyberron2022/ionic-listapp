@@ -1,11 +1,10 @@
-import React from "react";
 import store from "../redux/store";
 
 export function checkSession() {
-  let location_str: any = localStorage.getItem("location_path");
-  let location_path = JSON.parse(location_str);
-  let user_str: any = localStorage.getItem("currentUser");
-  let currentUser = JSON.parse(user_str);
+  //   let location_str: any = localStorage.getItem("location_path");
+  //   let location_path = JSON.parse(location_str);
+  //   let user_str: any = localStorage.getItem("currentUser");
+  //   let currentUser = JSON.parse(user_str);
 
   if (isExpired("expiry")) {
     dispatchLogout();
@@ -29,7 +28,7 @@ function isExpired(key: any) {
 
   const item = itemStr;
   const now: any = new Date();
-  console.log("NOW", now.getTime(), "EXPIRY", item);
+  // console.log("NOW", now.getTime(), "EXPIRY", item);
   // compare the expiry time of the item with the current time
   if (now.getTime() > item) {
     // If the item is expired, delete the item from storage

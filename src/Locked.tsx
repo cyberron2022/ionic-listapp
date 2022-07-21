@@ -13,6 +13,8 @@ import {
   IonCol,
   IonCardContent,
   IonButton,
+  IonTitle,
+  IonMenuButton,
 } from "@ionic/react";
 import React from "react";
 import { useHistory } from "react-router";
@@ -27,18 +29,26 @@ const Locked: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
+        <IonHeader>
+          <IonToolbar color="primary">
+            <IonTitle>Locked</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle className="ion-text-center">
               <IonRow>
                 <IonCol>
-                  <IonLabel>Your Session is Expired</IonLabel>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <IonLabel>Session Expired!</IonLabel>
+                    <IonLabel>Please login to continue.</IonLabel>
+                  </div>
                 </IonCol>
               </IonRow>
             </IonCardTitle>
             <IonCardContent>
               <IonRow>
-                <IonCol>
+                <IonCol className="ion-text-center">
                   <IonButton color="primary" onClick={handleLogin}>
                     Login
                   </IonButton>

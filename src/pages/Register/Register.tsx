@@ -44,10 +44,6 @@ const Register: React.FC = () => {
 
   let location = useLocation<any>();
 
-  useEffect(() => {
-    localStorage.setItem("location_path", JSON.stringify(location.pathname));
-  });
-
   const register = async () => {
     const errors = validateForm(fields);
     setErrors(errors);
@@ -62,11 +58,10 @@ const Register: React.FC = () => {
         password: fields[4].input.state.value,
       };
 
-      let location_path = location.pathname;
       try {
         //dispatch({ type: "REQUEST_REGISTER" });
 
-        const result = await registerUser(payload, location_path);
+        const result = await registerUser(payload);
 
         if (result.type === "REGISTER_SUCCESS") {
           //navigate("/login"); //navigate to Home on success

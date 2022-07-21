@@ -71,7 +71,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
     let location_str: any = localStorage.getItem("location_path");
     let location_path = JSON.parse(location_str);
 
-    const result: any = await getContactsDetailByID(paramID, location_path);
+    const result: any = await getContactsDetailByID(paramID);
     if (!result.payload?.detail) {
       setHasError(false);
     } else {
@@ -111,10 +111,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
     };
   }, [params]);
 
-  useEffect(() => {
-    localStorage.setItem("location_path", JSON.stringify(location.pathname));
-  });
-
   const updateHandlerBtn = async () => {
     const errors = validateForm(fields);
     setErrors(errors);
@@ -128,9 +124,8 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
         is_favorite: true,
       };
 
-      let location_path = location.pathname;
       try {
-        const result = await updateContactByID(payload, paramID, location_path);
+        const result = await updateContactByID(payload, paramID);
 
         if (result.type === "UPDATE_CONTACT_SUCCESS") {
           //navigate("/contacts/details/" + result.payload.id); //navigate to Home on success

@@ -51,7 +51,6 @@ const Games: React.FC = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("location_path", JSON.stringify(location.pathname));
     if (isLoggedIn()) {
       history.push("/ionic-listapp/login");
     } else {
@@ -61,9 +60,7 @@ const Games: React.FC = () => {
 
   const getList = async () => {
     await gameDispatch({ type: "GAME_LIST_REQUEST" });
-    let dispatch_result = await gameDispatch(
-      await getGamelist(location.pathname)
-    );
+    let dispatch_result = await gameDispatch(await getGamelist());
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
