@@ -34,16 +34,6 @@ import { getGamelist } from "../../context/actions/games/action";
 
 import "./Games.css";
 const Games: React.FC = () => {
-  // interface RootState {
-  //   games: any;
-  // }
-  // const selectGames = (state: RootState) => state.games;
-  // const games = useSelector(selectGames);
-  // const data = games.getGameList?.data;
-  // const loading = games.getGameList?.loading;
-
-  // const dispatch = useDispatch();
-
   const history = useHistory();
 
   const {

@@ -5,11 +5,11 @@ export const useFormInput = (initialValue) => {
 
   const handleChange = async (e) => {
     //console.log(e.target.type);
-    if (e.target.type === "text" || e.target.type === "password") {
+    if (e.target?.type === "text" || e.target.type === "password") {
       const tempValue = await e.currentTarget.value;
       setValue(tempValue);
     }
-    if (e.target.type === "numeric") {
+    if (e.target?.type === "numeric") {
       //const re = /^[0-9\b]+$/;
       //const tempValue = e.target.value.replace(/\D/g, "");
       const tempValue = e.target.value.replace(/[^0-9]/g, "");

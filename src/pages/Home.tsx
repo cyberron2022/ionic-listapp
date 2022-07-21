@@ -70,21 +70,6 @@ const Home: React.FC = () => {
                 {item.title}
                 <p>{item.description}</p>
               </IonLabel>
-              {/* <IonGrid>
-                <IonRow>
-                  <IonCol size="2">
-                    <IonButtons>
-                      <IonIcon icon={item.icon} slot="icon-only"></IonIcon>
-                    </IonButtons>
-                  </IonCol>
-                  <IonCol size="10">
-                    <IonLabel>
-                      {item.title}
-                      <p>{item.description}</p>
-                    </IonLabel>
-                  </IonCol>
-                </IonRow>
-              </IonGrid> */}
             </IonItem>
           ))}
         </IonList>
