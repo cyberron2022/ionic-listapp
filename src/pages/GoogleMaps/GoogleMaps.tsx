@@ -33,6 +33,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 import { useHistory } from "react-router";
 import "./GoogleMaps.css";
+import store from "../../redux/store";
+
 const libraries: any = ["places"];
 const GoogleMaps: React.FC<{}> = (Props) => {
   //const { navigate } = useContext(NavContext);
@@ -54,6 +56,17 @@ const GoogleMaps: React.FC<{}> = (Props) => {
   const destinationRef: any = useRef<HTMLInputElement>();
 
   const center = { lat: 14.6558358, lng: 121.1228339 };
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   useEffect(() => {
     if (isLoggedIn()) {

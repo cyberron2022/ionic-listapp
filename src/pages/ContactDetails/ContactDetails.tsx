@@ -58,7 +58,20 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
 
   const paramID = match.url.replace("/ionic-listapp/contacts/details/", "");
 
-  useIonViewWillEnter(() => {
+  // useIonViewWillEnter(() => {
+  //   const loadContactDetail = async () => {
+  //     const result: any = await getContactsDetailByID(paramID);
+  //     if (!result.payload?.detail) {
+  //       setHasError(false);
+  //     } else {
+  //       setHasError(true);
+  //       setShowAlert(true);
+  //     }
+  //   };
+  //   loadContactDetail();
+  // });
+
+  useEffect(() => {
     const loadContactDetail = async () => {
       const result: any = await getContactsDetailByID(paramID);
       if (!result.payload?.detail) {
@@ -69,11 +82,10 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
       }
     };
     loadContactDetail();
-  });
+  }, []);
 
   useEffect(() => {
     let timer = setInterval(() => {
-      console.log("ContactDetails");
       if (store.getState().users.isLoggedIn === false) {
         history.push("/ionic-listapp/locked");
       }

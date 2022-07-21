@@ -38,6 +38,7 @@ import styles from "./UpdateContact.module.scss";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 
 import { camera } from "ionicons/icons";
+import store from "../../redux/store";
 
 interface ContactDetailPageProps
   extends RouteComponentProps<{
@@ -67,19 +68,38 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   let location = useLocation<any>();
   const paramID = match.url.replace("/ionic-listapp/contacts/update/", "");
 
-  useIonViewWillEnter(async () => {
-    let location_str: any = localStorage.getItem("location_path");
-    let location_path = JSON.parse(location_str);
+  // useIonViewWillEnter( async () => {
+  //   const result: any = await getContactsDetailByID(paramID);
+  //   if (!result.payload?.detail) {
+  //     setHasError(false);
+  //   } else {
+  //     setHasError(true);
+  //     setShowAlert(true);
+  //   }
+  // });
 
-    const result: any = await getContactsDetailByID(paramID);
-    if (!result.payload?.detail) {
-      setHasError(false);
-    } else {
-      setHasError(true);
-      setShowAlert(true);
+  useEffect(() => {
+    const loadContactDetail = async () => {
+      const result: any = await getContactsDetailByID(paramID);
+      if (!result.payload?.detail) {
+        setHasError(false);
+      } else {
+        setHasError(true);
+        setShowAlert(true);
+      }
+    };
+    loadContactDetail();
+  }, []);
 
-      //history.goBack();
-    }
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   useEffect(() => {

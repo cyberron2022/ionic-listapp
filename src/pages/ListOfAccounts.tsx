@@ -22,7 +22,7 @@ import { useContext, useEffect, useState } from "react";
 import isLoggedIn from "../components/Login/isLoggedIn";
 import { useHistory } from "react-router";
 import { useData } from "../hooks/useData";
-
+import store from "../redux/store";
 const ListOfAccounts: React.FC = () => {
   const { data } = useData();
   const [nameSearch, setNameSearch] = useState(null as any);
@@ -31,6 +31,17 @@ const ListOfAccounts: React.FC = () => {
   const setSearchInput = (ev: any) => {
     setNameSearch(ev.detail);
   };
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   useEffect(() => {
     if (isLoggedIn()) {

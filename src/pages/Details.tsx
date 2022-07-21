@@ -17,9 +17,10 @@ import {
   NavContext,
   useIonViewWillEnter,
 } from "@ionic/react";
-import React, { useContext, useState } from "react";
-import { RouteComponentProps } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { RouteComponentProps, useParams } from "react-router";
 import { useData } from "../hooks/useData";
+import store from "../redux/store";
 
 import "./Details.css";
 
@@ -32,23 +33,48 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
   const { getUserByEmail } = useData();
   const [user, setUser] = useState(null as any);
   const { navigate } = useContext(NavContext);
+  const params: any = useParams();
+  const paramEmail = match.url.replace(
+    "/ionic-listapp/accountlist/details/",
+    ""
+  );
 
-  useIonViewWillEnter(async () => {
-    //console.log("match:", match);
-    //console.log("history", history);
-    const paramEmail = match.url.replace(
-      "/ionic-listapp/accountlist/details/",
-      ""
-    );
-    const user = await getUserByEmail(paramEmail);
-    console.log(user);
-    if (user) {
-      setUser(user);
-    } else {
-      history.goBack();
-    }
+  // useIonViewWillEnter(async () => {
+  //   const paramEmail = match.url.replace(
+  //     "/ionic-listapp/accountlist/details/",
+  //     ""
+  //   );
+  //   const user = await getUserByEmail(paramEmail);
+  //   console.log(user);
+  //   if (user) {
+  //     setUser(user);
+  //   } else {
+  //     history.goBack();
+  //   }
+  // });
 
-    //console.log(user);
+  useEffect(() => {
+    const loadContactDetail = async () => {
+      const user: any = await getUserByEmail(params.email);
+      console.log(user);
+      if (user) {
+        setUser(user);
+      } else {
+        history.goBack();
+      }
+    };
+    loadContactDetail();
+  }, []);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   const convertToDate = (param: string) => {

@@ -30,7 +30,7 @@ import { NavLink } from "react-router-dom";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 import { GlobalContext } from "../../context/context";
 import { getGamelist } from "../../context/actions/games/action";
-// import { getGamelist } from "../../redux/actions/games";
+import store from "../../redux/store";
 
 import "./Games.css";
 const Games: React.FC = () => {
@@ -57,6 +57,17 @@ const Games: React.FC = () => {
       getList();
     }
   }, []);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   const getList = async () => {
     await gameDispatch({ type: "GAME_LIST_REQUEST" });

@@ -23,11 +23,8 @@ import {
   NavContext,
 } from "@ionic/react";
 import {
-  add,
   airplaneOutline,
   businessOutline,
-  camera,
-  cameraOutline,
   cashOutline,
   diamondOutline,
   newspaperOutline,
@@ -40,10 +37,23 @@ import {
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import isLoggedIn from "../../components/Login/isLoggedIn";
-
 import "./IconMenu.css";
+import store from "../../redux/store";
+
 const IconMenu: React.FC = () => {
   //const { navigate } = useContext(NavContext);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (store.getState().users.isLoggedIn === false) {
+        history.push("/ionic-listapp/locked");
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
   const history = useHistory();
   useEffect(() => {
     if (isLoggedIn()) {
