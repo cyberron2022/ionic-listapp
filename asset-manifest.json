@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ionic-listapp/static/css/main.eec2ad9a.css",
-    "main.js": "/ionic-listapp/static/js/main.e9004fc0.js",
+    "main.js": "/ionic-listapp/static/js/main.5db91e4f.js",
     "static/js/630.b0c80099.chunk.js": "/ionic-listapp/static/js/630.b0c80099.chunk.js",
     "static/js/858.bb875db0.chunk.js": "/ionic-listapp/static/js/858.bb875db0.chunk.js",
     "static/js/372.bcf72a2d.chunk.js": "/ionic-listapp/static/js/372.bcf72a2d.chunk.js",
@@ -25,7 +25,7 @@
     "service-worker.js": "/ionic-listapp/service-worker.js",
     "index.html": "/ionic-listapp/index.html",
     "main.eec2ad9a.css.map": "/ionic-listapp/static/css/main.eec2ad9a.css.map",
-    "main.e9004fc0.js.map": "/ionic-listapp/static/js/main.e9004fc0.js.map",
+    "main.5db91e4f.js.map": "/ionic-listapp/static/js/main.5db91e4f.js.map",
     "630.b0c80099.chunk.js.map": "/ionic-listapp/static/js/630.b0c80099.chunk.js.map",
     "858.bb875db0.chunk.js.map": "/ionic-listapp/static/js/858.bb875db0.chunk.js.map",
     "372.bcf72a2d.chunk.js.map": "/ionic-listapp/static/js/372.bcf72a2d.chunk.js.map",
@@ -49,6 +49,6 @@
   },
   "entrypoints": [
     "static/css/main.eec2ad9a.css",
-    "static/js/main.e9004fc0.js"
+    "static/js/main.5db91e4f.js"
   ]
 }
