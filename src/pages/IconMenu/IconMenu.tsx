@@ -38,14 +38,16 @@ import {
   walletOutline,
 } from "ionicons/icons";
 import React, { useContext, useEffect } from "react";
-import isLgggedIn from "../../components/Login/isLoggedIn";
+import { useHistory } from "react-router";
+import isLoggedIn from "../../components/Login/isLoggedIn";
 
 import "./IconMenu.css";
 const IconMenu: React.FC = () => {
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   useEffect(() => {
-    if (isLgggedIn()) {
-      navigate("/ionic-listapp/login");
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
     }
   }, []);
 

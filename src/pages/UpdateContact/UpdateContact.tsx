@@ -1,4 +1,3 @@
-import { Camera, CameraResultType } from "@capacitor/camera";
 import {
   IonAlert,
   IonAvatar,
@@ -33,10 +32,11 @@ import { validateForm } from "../../data/utils";
 import {
   getContactsDetailByID,
   updateContactByID,
+  takePicture,
 } from "../../redux/actions/contact";
 import styles from "./UpdateContact.module.scss";
+import isLoggedIn from "../../components/Login/isLoggedIn";
 
-import supabase from "../../supabase-client";
 import { camera } from "ionicons/icons";
 
 interface ContactDetailPageProps
@@ -48,7 +48,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   const history = useHistory();
   const params = useParams();
   const fields = useUpdateContactFields();
-  const { navigate } = useContext(NavContext);
 
   interface RootState {
     contacts: any;
@@ -72,12 +71,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
     let location_str: any = localStorage.getItem("location_path");
     let location_path = JSON.parse(location_str);
 
-    dispatch({ type: "REQUEST_CONTACT_DETAILS" });
-
-    const result: any = dispatch(
-      await getContactsDetailByID(paramID, location_path)
-    );
-
+    const result: any = await getContactsDetailByID(paramID, location_path);
     if (!result.payload?.detail) {
       setHasError(false);
     } else {
@@ -87,6 +81,12 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
       //history.goBack();
     }
   });
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
+    }
+  }, []);
 
   useEffect(() => {
     fields.forEach((field) => {
@@ -130,13 +130,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
 
       let location_path = location.pathname;
       try {
-        dispatch({ type: "REQUEST_UPDATE_CONTACT" });
-
-        const result = dispatch(
-          await updateContactByID(payload, paramID, location_path)
-        );
-
-        console.log("Result", result);
+        const result = await updateContactByID(payload, paramID, location_path);
 
         if (result.type === "UPDATE_CONTACT_SUCCESS") {
           //navigate("/contacts/details/" + result.payload.id); //navigate to Home on success
@@ -171,71 +165,23 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
     //navigate("/contacts");
   };
 
-  const uploadImage = async (path: string) => {
-    const response = await fetch(path);
-    const blob = await response.blob();
-
-    const filename = path.substring(path.lastIndexOf("/") + 1);
-    const { data, error } = await supabase.storage
-      .from("image-bucket") //Created STORATE NAME in supabase.com account
-      .upload(`public/${filename}`, blob, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-
-    if (error) alert(error.message);
-    else {
-      let url = await getPicturesUrl(`public/${filename}`);
-      setImagePath(url);
-
-      setTimeout(() => {
-        setIsUpload(false);
-      }, 1000);
-    }
-
-    return true;
-  };
-
-  /**
-   * Take Photo Function
-   */
-  const takePicture = async () => {
-    try {
-      const cameraResult = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri,
-      });
-      const path: any = cameraResult?.webPath || cameraResult?.path;
-
-      // console.log("WEB PATH", path);
-      console.log("BLOB", path);
-
-      setImagePath(null);
-      setIsUpload(true);
-      await uploadImage(path);
-      return true;
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-
-  const getPicturesUrl = async (path: any) => {
-    const { publicURL, error } = supabase.storage
-      .from("image-bucket")
-      .getPublicUrl(path);
-
-    if (error) alert(error.message);
-    console.log("Public URL", publicURL);
-    return publicURL;
+  const handleTakePicture = async () => {
+    const url = await takePicture();
+    setImagePath(url);
   };
 
   return (
     <>
       <IonLoading
         //cssClass='my-custom-class'
-        isOpen={contacts.updateContact?.loading || isUpload}
-        message={"Please wait..."}
+        isOpen={
+          contacts.updateContact?.loading ||
+          contacts.uploadContactPicture?.loading
+        }
+        message={
+          contacts.updateContact?.loadingMessage ||
+          contacts.uploadContactPicture?.loadingMessage
+        }
         //duration={5000}
       />
       <IonPage>
@@ -282,7 +228,7 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
                   className="ion-text-capitalize"
                   size="small"
                   color="secondary"
-                  onClick={takePicture}
+                  onClick={handleTakePicture}
                 >
                   <IonIcon slot="start" icon={camera} />
                   Take Picture

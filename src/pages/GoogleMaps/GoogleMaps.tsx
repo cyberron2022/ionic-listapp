@@ -5,20 +5,14 @@ import {
   IonButtons,
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   IonCol,
   IonContent,
   IonFab,
   IonFabButton,
-  IonFooter,
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
   IonLabel,
-  IonList,
   IonLoading,
   IonPage,
   IonRow,
@@ -27,20 +21,22 @@ import {
   NavContext,
 } from "@ionic/react";
 
-import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
   Autocomplete,
   DirectionsRenderer,
+  GoogleMap,
+  Marker,
+  useLoadScript,
 } from "@react-google-maps/api";
-import isLgggedIn from "../../components/Login/isLoggedIn";
-import "./GoogleMaps.css";
 import { carSport, close, navigateOutline } from "ionicons/icons";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import isLoggedIn from "../../components/Login/isLoggedIn";
+import { useHistory } from "react-router";
+import "./GoogleMaps.css";
 const libraries: any = ["places"];
 const GoogleMaps: React.FC<{}> = (Props) => {
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: `${apiKey}`,
@@ -60,8 +56,8 @@ const GoogleMaps: React.FC<{}> = (Props) => {
   const center = { lat: 14.6558358, lng: 121.1228339 };
 
   useEffect(() => {
-    if (isLgggedIn()) {
-      navigate("/ionic-listapp/login");
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
     }
   }, []);
   if (!isLoaded)
@@ -212,10 +208,10 @@ const GoogleMaps: React.FC<{}> = (Props) => {
                   </IonRow>
                   <IonRow>
                     <IonCol size="6">
-                      <IonLabel>Distance: {distance} </IonLabel>
+                      <IonLabel class="label">Distance: {distance} </IonLabel>
                     </IonCol>
                     <IonCol size="6">
-                      <IonLabel>Duration: {duration}</IonLabel>
+                      <IonLabel class="label">Duration: {duration}</IonLabel>
                     </IonCol>
                   </IonRow>
                   <IonRow>

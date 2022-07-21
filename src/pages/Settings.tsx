@@ -21,10 +21,12 @@ import {
 } from "@ionic/react";
 import { chevronForwardOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import isLoggedIn from "../components/Login/isLoggedIn";
 
 function Settings() {
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const [sortBy, setSortBy] = useState<any>(null);
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState(null);
@@ -113,7 +115,7 @@ function Settings() {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      navigate("/ionic-listapp/login");
+      history.push("/ionic-listapp/login");
     } else {
       getSettings();
     }
@@ -137,18 +139,6 @@ function Settings() {
             checked: selected,
           };
         })}
-        // {[
-        //   {
-        //     label: "First name",
-        //     type: "radio",
-        //     value: "First name",
-        //   },
-        //   {
-        //     label: "Last name",
-        //     type: "radio",
-        //     value: "Last name",
-        //   },
-        // ]}
         buttons={[
           {
             text: "OK",

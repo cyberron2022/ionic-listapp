@@ -1,6 +1,8 @@
 import {
+  REQUEST_LOGIN,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  REQUEST_REGISTER,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   SET_USER_INFO,
@@ -8,7 +10,7 @@ import {
 } from "../types";
 
 import addexpirytime from "../../data/addexpirytime";
-
+import store from "../../redux/store";
 export function setUserInfo(payload) {
   return { type: SET_USER_INFO, payload: payload };
 }
@@ -20,7 +22,7 @@ export async function loginUser(loginPayload, location_path) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(loginPayload),
   };
-
+  store.dispatch({ type: REQUEST_LOGIN });
   try {
     let response = await fetch(`${ROOT_URL}/login`, requestOptions);
     let data = await response.json();
@@ -32,11 +34,16 @@ export async function loginUser(loginPayload, location_path) {
       localStorage.setItem("sortBy", "Last name");
       // ADD EXPIRY TO LOCAL STORAGE
       addexpirytime(location_path);
+      let result = await store.dispatch({ type: LOGIN_SUCCESS, payload: data });
+
       return { type: LOGIN_SUCCESS, payload: data };
     } else {
+      //
+      await store.dispatch({ type: LOGIN_FAIL, payload: data });
       return { type: LOGIN_FAIL, payload: data };
     }
   } catch (error) {
+    await store.dispatch({ type: LOGIN_FAIL, payload: error });
     return { type: LOGIN_FAIL, payload: error };
     //dispatch({ type: LOGIN_ERROR, error: error });
   }
@@ -51,20 +58,20 @@ export async function registerUser(payload, location_path) {
   };
 
   try {
-    //dispatch({ type: REQUEST_REGISTER });
+    await store.dispatch({ type: REQUEST_REGISTER });
     let response = await fetch(`${ROOT_URL}/register`, requestOptions);
     let data = await response.json();
 
     if (response.status === 201) {
-      //dispatch({ type: "REGISTER_SUCCESS", payload: data });
+      await store.dispatch({ type: REGISTER_SUCCESS, payload: data });
       return { type: REGISTER_SUCCESS, payload: data };
     } else {
-      //dispatch({ type: "REGISTER_FAIL", error: data });
+      await store.dispatch({ type: REGISTER_FAIL, payload: data });
       return { type: REGISTER_FAIL, payload: data };
     }
     return data;
   } catch (error) {
-    //dispatch({ type: "REGISTER_FAIL", error: error });
+    await store.dispatch({ type: REGISTER_FAIL, payload: error });
     return { type: REGISTER_FAIL, payload: error };
   }
 }
@@ -77,5 +84,6 @@ export async function logout() {
   localStorage.removeItem("expiry");
   localStorage.removeItem("location_path");
   localStorage.removeItem("sortBy");
-  return { type: USER_LOGOUT, payload: "" };
+  await store.dispatch({ type: USER_LOGOUT });
+  return { type: USER_LOGOUT };
 }

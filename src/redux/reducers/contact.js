@@ -14,6 +14,12 @@ import {
   REQUEST_UPDATE_CONTACT,
   UPDATE_CONTACT_FAIL,
   UPDATE_CONTACT_SUCCESS,
+  UPLOAD_PICTURE_REQUEST,
+  UPLOAD_PICTURE_SUCCESS,
+  UPLOAD_PICTURE_FAIL,
+  TAKE_PICTURE,
+  UPLOAD_IMAGE,
+  GET_IMAGE_URL,
 } from "../types";
 
 export const initialState = {
@@ -21,30 +27,60 @@ export const initialState = {
     data: [],
     action_type: "",
     loading: false,
+    loadingMessage: null,
     errorMessage: null,
   },
   getContactsDetail: {
     data: {},
     action_type: "",
     loading: false,
+    loadingMessage: null,
     errorMessage: null,
   },
   createContact: {
     data: {},
     action_type: "",
     loading: false,
+    loadingMessage: null,
     errorMessage: null,
   },
   deleteContact: {
     data: {},
     action_type: "",
     loading: false,
+    loadingMessage: null,
     errorMessage: null,
   },
   updateContact: {
     data: {},
     action_type: "",
     loading: false,
+    loadingMessage: null,
+    errorMessage: null,
+  },
+  uploadContactPicture: {
+    data: {},
+    action_type: "",
+    loading: false,
+    loadingMessage: null,
+    errorMessage: null,
+  },
+  takePicture: {
+    data: {},
+    action_type: "",
+    loading: true,
+    errorMessage: null,
+  },
+  uploadImage: {
+    data: {},
+    action_type: "",
+    loading: true,
+    errorMessage: null,
+  },
+  getImageUrl: {
+    data: {},
+    action_type: "",
+    loading: true,
     errorMessage: null,
   },
 };
@@ -58,6 +94,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.getContacts,
           action_type: action.type,
           loading: true,
+          loadingMessage: "Please wait...",
           errorMessage: "",
         },
       };
@@ -69,6 +106,7 @@ const contactReducer = (state = initialState, action = {}) => {
           data: action.payload,
           action_type: action.type,
           loading: false,
+          loadingMessage: null,
           errorMessage: "",
         },
       };
@@ -89,6 +127,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.getContactsDetail,
           action_type: action.type,
           loading: true,
+          loadingMessage: "Please wait...",
           errorMessage: "",
         },
         getContacts: {
@@ -103,6 +142,7 @@ const contactReducer = (state = initialState, action = {}) => {
           data: action.payload,
           action_type: action.type,
           loading: false,
+          loadingMessage: null,
           errorMessage: "",
         },
       };
@@ -123,6 +163,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.deleteContact,
           action_type: action.type,
           loading: true,
+          loadingMessage: "Deleting Contact...",
           errorMessage: "",
         },
       };
@@ -134,6 +175,7 @@ const contactReducer = (state = initialState, action = {}) => {
           action_type: action.type,
           data: parseInt(action.payload),
           loading: false,
+          loadingMessage: null,
           errorMessage: "",
         },
         getContacts: {
@@ -163,6 +205,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.createContact,
           action_type: action.type,
           loading: true,
+          loadingMessage: "Creating Contact...",
           errorMessage: "",
         },
       };
@@ -173,6 +216,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.createContact,
           data: action.payload,
           loading: false,
+          loadingMessage: null,
           error: null,
         },
         getContacts: {
@@ -198,6 +242,7 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.updateContact,
           action_type: action.type,
           loading: true,
+          loadingMessage: "Updating Contact...",
           errorMessage: "",
         },
       };
@@ -209,6 +254,7 @@ const contactReducer = (state = initialState, action = {}) => {
           action_type: action.type,
           data: parseInt(action.payload.id),
           loading: false,
+          loadingMessage: null,
           errorMessage: "",
         },
         getContacts: {
@@ -239,6 +285,68 @@ const contactReducer = (state = initialState, action = {}) => {
           ...state.updateContact,
           error: action.payload,
           loading: false,
+        },
+      };
+    case UPLOAD_PICTURE_REQUEST:
+      return {
+        ...state,
+        uploadContactPicture: {
+          ...state.uploadContactPicture,
+          action_type: action.type,
+          loading: true,
+          loadingMessage: "Uploading Picture...",
+          errorMessage: "",
+        },
+      };
+    case TAKE_PICTURE:
+      return {
+        ...state,
+        takePicture: {
+          ...state.takePicture,
+          data: action.payload,
+          loading: true,
+          error: null,
+        },
+      };
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          data: action.payload,
+          loading: true,
+          error: null,
+        },
+      };
+    case GET_IMAGE_URL:
+      return {
+        ...state,
+        getImageUrl: {
+          ...state.getImageUrl,
+          data: action.payload,
+          loading: true,
+          error: null,
+        },
+      };
+    case UPLOAD_PICTURE_SUCCESS:
+      return {
+        ...state,
+        uploadContactPicture: {
+          ...state.uploadContactPicture,
+          data: action.payload,
+          loading: false,
+          loadingMessage: null,
+          error: null,
+        },
+      };
+    case UPLOAD_PICTURE_FAIL:
+      return {
+        ...state,
+        uploadContactPicture: {
+          ...state.uploadContactPicture,
+          data: null,
+          loading: false,
+          error: action.payload,
         },
       };
     default:

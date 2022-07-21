@@ -10,6 +10,7 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonLoading,
   IonPage,
   IonSearchbar,
   IonTitle,
@@ -18,27 +19,28 @@ import {
 } from "@ionic/react";
 import { settingsOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
-import isLgggedIn from "../components/Login/isLoggedIn";
-
+import isLoggedIn from "../components/Login/isLoggedIn";
+import { useHistory } from "react-router";
 import { useData } from "../hooks/useData";
 
 const ListOfAccounts: React.FC = () => {
   const { data } = useData();
   const [nameSearch, setNameSearch] = useState(null as any);
-
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const setSearchInput = (ev: any) => {
     setNameSearch(ev.detail);
   };
 
-  const { navigate } = useContext(NavContext);
   useEffect(() => {
-    if (isLgggedIn()) {
-      navigate("/ionic-listapp/login");
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
     }
   }, []);
 
   return (
     <IonPage>
+      <IonLoading isOpen={true} message={"Please wait..."} duration={500} />
       <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">

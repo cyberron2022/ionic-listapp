@@ -3,6 +3,8 @@ import {
   IonAvatar,
   IonBackButton,
   IonButtons,
+  IonCard,
+  IonCardContent,
   IonContent,
   IonFab,
   IonFabButton,
@@ -52,16 +54,14 @@ const Contacts: React.FC = () => {
   const contactState: any = store.getState().contacts;
 
   useEffect(() => {
-    dispatch({ type: "REQUEST_CONTACTS" });
     loadContacts();
-    console.log(contacts.getContacts.data.length);
   }, []);
 
   const loadContacts = () => {
     const autoLoad = async () => {
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
-      const response: any = dispatch(await getContacts(location_path));
+      const response: any = await getContacts(location_path);
       //setData(response.payload);
     };
 
@@ -187,9 +187,15 @@ const Contacts: React.FC = () => {
                   </IonItem>
                 ))
             ) : (
-              <IonItem>
-                <IonLabel>No Record found..</IonLabel>
-              </IonItem>
+              <>
+                {!contacts.getContacts?.loading && (
+                  <IonCard>
+                    <IonCardContent className="ion-text-center">
+                      <IonLabel>No Record found..</IonLabel>
+                    </IonCardContent>
+                  </IonCard>
+                )}
+              </>
             )}
           </IonList>
         </IonContent>

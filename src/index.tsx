@@ -8,14 +8,15 @@ import reportWebVitals from "./reportWebVitals";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { AuthProvider } from "./context/context";
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* <AuthProvider> */}
-    {/* <React.StrictMode> */}
-    <App />
-    {/* </React.StrictMode> */}
-    {/* </AuthProvider> */}
+    <AuthProvider>
+      {/* <React.StrictMode> */}
+      <App />
+      {/* </React.StrictMode> */}
+    </AuthProvider>
   </Provider>,
   document.getElementById("root")
 );

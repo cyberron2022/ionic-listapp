@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { Action } from "../../components/Login/Action";
 import CustomField from "../../components/Login/CustomField";
 import { useLoginFields } from "../../data/fields";
@@ -27,10 +27,11 @@ import "./style.css";
 
 const Login: React.FC = () => {
   const params = useParams();
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const fields = useLoginFields();
   const [errors, setErrors] = useState<any>(false);
-
+  const [showAlert, setShowAlert] = useState(false);
   //const dispatch = useAuthDispatch(); //get the dispatch method from the useDispatch custom hook
 
   interface RootState {
@@ -39,7 +40,7 @@ const Login: React.FC = () => {
 
   const selectUsers = (state: RootState) => state.users;
   const users = useSelector(selectUsers);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   let location = useLocation<any>();
 
@@ -60,20 +61,22 @@ const Login: React.FC = () => {
 
       let location_path = location.pathname;
       try {
-        dispatch({ type: "REQUEST_LOGIN", payload: "" });
+        //dispatch({ type: "REQUEST_LOGIN", payload: "" });
 
-        const result = dispatch(await loginUser(payload, location_path));
+        //const result = dispatch(await loginUser(payload, location_path));
+        const result = await loginUser(payload, location_path);
 
         console.log("Result", result);
 
         if (result.type === "LOGIN_SUCCESS") {
-          navigate("/ionic-listapp/"); //navigate to Home on success
+          history.push("/ionic-listapp/"); //navigate to Home on success
         }
         if (result.type === "LOGIN_FAIL") {
           setShowAlert(true);
         }
-      } catch (error) {}
-      console.log("success");
+      } catch (error) {
+        setShowAlert(true);
+      }
     }
   };
 
@@ -84,15 +87,13 @@ const Login: React.FC = () => {
     };
   }, [params]);
 
-  const [showAlert, setShowAlert] = useState(false);
-
   return (
     <>
       {/* <Modal showModal={showModal} closeModal={closeModal}></Modal> */}
       <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
-        header="Alert"
+        // header="Alert"
         subHeader=""
         message={
           store.getState().users.errorMessage ||

@@ -1,35 +1,15 @@
 import React, { useReducer } from "react";
-import { AuthReducer, initialState } from "./reducer";
-
-const AuthStateContext = React.createContext();
-const AuthDispatchContext = React.createContext();
-
-export function useAuthState() {
-  const context = React.useContext(AuthStateContext);
-  if (context === undefined) {
-    throw new Error("useAuthState must be used within a AuthProvider");
-  }
-
-  return context;
-}
-
-export function useAuthDispatch() {
-  const context = React.useContext(AuthDispatchContext);
-  if (context === undefined) {
-    throw new Error("useAuthDispatch must be used within a AuthProvider");
-  }
-
-  return context;
-}
+import { AuthReducer, initialState } from "./reducer/user";
+import { gameReducer, gameState } from "./reducer/games";
+export const GlobalContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, dispatch] = useReducer(AuthReducer, initialState);
+  const [games, gameDispatch] = useReducer(gameReducer, gameState);
 
   return (
-    <AuthStateContext.Provider value={user}>
-      <AuthDispatchContext.Provider value={dispatch}>
-        {children}
-      </AuthDispatchContext.Provider>
-    </AuthStateContext.Provider>
+    <GlobalContext.Provider value={{ user, games, dispatch, gameDispatch }}>
+      {children}
+    </GlobalContext.Provider>
   );
 };

@@ -1,12 +1,14 @@
 import {
+  IonAlert,
   IonApp,
   IonRouterOutlet,
   NavContext,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
+import { useHistory } from "react-router";
 import Home from "./pages/Home";
 
 /* Core CSS required for Ionic components to work properly */
@@ -47,8 +49,9 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const { navigate } = useContext(NavContext);
+  const [showAlert, setShowAlert] = useState(false);
   //const user_str: any = localStorage.getItem("currentUser");
-
+  const history = useHistory();
   function isExpired(key: any) {
     //setIsExpiryUpdate(false);
     const itemStr = localStorage.getItem("expiry");
@@ -77,7 +80,8 @@ const App: React.FC = () => {
     let timer = setInterval(() => {
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
-
+      let user_str: any = localStorage.getItem("currentUser");
+      let currentUser = JSON.parse(user_str);
       //console.log('isExpired',isExpired('expiry'))
       // let toke_str: any = localStorage.getItem("token");
       // let token = JSON.parse(toke_str);
@@ -87,11 +91,11 @@ const App: React.FC = () => {
           location_path !== "/ionic-listapp/logout") &&
         location_path === null
       ) {
-        navigate("/ionic-listapp/login");
+        setShowAlert(true);
       }
 
       if (isExpired("expiry")) {
-        navigate("/ionic-listapp/login");
+        setShowAlert(true);
       }
     }, 1000);
 
@@ -102,6 +106,23 @@ const App: React.FC = () => {
 
   return (
     <IonApp>
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        // header="Alert"
+        subHeader=""
+        message={"Session is expired."}
+        buttons={[
+          {
+            text: "OK",
+            role: "confirm",
+            handler: () => {
+              setShowAlert(false);
+              navigate("/ionic-listapp/login");
+            },
+          },
+        ]}
+      />
       <IonReactRouter>
         <Menu />
         <IonRouterOutlet id="main">

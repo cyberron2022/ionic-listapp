@@ -13,13 +13,15 @@ import {
   NavContext,
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
-import isLgggedIn from "../components/Login/isLoggedIn";
+import isLoggedIn from "../components/Login/isLoggedIn";
 import addexpirytime from "../data/addexpirytime";
+import { useHistory } from "react-router";
 import menulist from "../menu";
 import "./Home.css";
 
 const Home: React.FC = () => {
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
 
   const location_str: any = localStorage.getItem("location_path");
@@ -43,8 +45,8 @@ const Home: React.FC = () => {
   }, [isUpdate]);
 
   useEffect(() => {
-    if (isLgggedIn()) {
-      navigate("/ionic-listapp/login");
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
     }
   }, []);
 

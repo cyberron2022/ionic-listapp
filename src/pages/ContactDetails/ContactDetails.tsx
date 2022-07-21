@@ -17,16 +17,16 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
-  NavContext,
   useIonAlert,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { star, starOutline, trashOutline } from "ionicons/icons";
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
+
 import {
   deleteContactByID,
   getContactsDetailByID,
@@ -50,34 +50,23 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
   const [hasError, setHasError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [presentAlert] = useIonAlert();
-
-  // const { navigate } = useContext(NavContext);
   const selectContacts = (state: RootState) => state.contacts;
   const contacts = useSelector(selectContacts);
-  const { getContactsDetail } = contacts; // GET State from REDUX STORE
+  const { getContactsDetail, deleteContact, updateContact } = contacts; // GET State from REDUX STORE
   const { data } = contacts.getContactsDetail; // GET Data from REDUX STORE
-  const dispatch = useDispatch();
 
   const paramID = match.url.replace("/ionic-listapp/contacts/details/", "");
 
   useIonViewWillEnter(async () => {
-    console.log("ION WILL ENTER");
     let location_str: any = localStorage.getItem("location_path");
     let location_path = JSON.parse(location_str);
 
-    dispatch({ type: "REQUEST_CONTACT_DETAILS" });
-
-    const result: any = dispatch(
-      await getContactsDetailByID(paramID, location_path)
-    );
-
+    const result: any = await getContactsDetailByID(paramID, location_path);
     if (!result.payload?.detail) {
       setHasError(false);
     } else {
       setHasError(true);
       setShowAlert(true);
-
-      //history.goBack();
     }
   });
 
@@ -85,28 +74,22 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
     const delContacts = async () => {
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
-      dispatch({ type: "REQUEST_CONTACT_DELETE" });
 
-      const response: any = dispatch(
-        await deleteContactByID(paramID, location_path)
-      );
-
-      //setData(response.payload);
+      const result: any = await deleteContactByID(paramID, location_path);
     };
     delContacts();
     history.goBack();
-    //history.replace("/contacts");
   };
   const setHandlerBack = () => {
     setShowAlert(false);
     history.goBack();
-    //navigate("/contacts");
   };
+
   const updateContactFavorite = () => {
     const updateFav = async () => {
       let location_str: any = localStorage.getItem("location_path");
       let location_path = JSON.parse(location_str);
-      let payload = {
+      let payload: any = {
         country_code: "+63",
         first_name: data?.first_name,
         last_name: data?.last_name,
@@ -114,9 +97,11 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
         contact_picture: data?.contact_picture,
         is_favorite: !data?.is_favorite,
       };
-      dispatch({ type: "REQUEST_CONTACT_DETAILS" });
-      const response: any = dispatch(
-        await updateContactByID(payload, paramID, location_path)
+
+      const response: any = await updateContactByID(
+        payload,
+        paramID,
+        location_path
       );
 
       //setData(response.payload);
@@ -128,8 +113,16 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
     <>
       <IonLoading
         //cssClass='my-custom-class'
-        isOpen={getContactsDetail?.loading}
-        message={"Please wait..."}
+        isOpen={
+          getContactsDetail?.loading ||
+          deleteContact?.loading ||
+          updateContact?.loading
+        }
+        message={
+          getContactsDetail?.loadingMessage ||
+          deleteContact?.loadingMessage ||
+          updateContact?.loadingMessage
+        }
         //duration={5000}
       />
       <IonAlert
@@ -151,9 +144,8 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
           <IonToolbar>
             <IonButtons slot="start">
               <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
-              <IonLabel>Back</IonLabel>
             </IonButtons>
-
+            <IonLabel>Back</IonLabel>
             <IonButtons slot="end" className="">
               <IonButton
                 disabled={hasError ? true : false}
@@ -203,7 +195,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
           <IonItemGroup>
             <IonItemDivider>
               <IonGrid>
-                <IonRow className="ion-margin-start ion-padding-top ion-padding-end ">
+                <IonRow className="ion-margin-start ion-margin-bottom ion-padding-top ion-padding-end ">
                   <IonCol size="12" className="avatar-content">
                     <IonAvatar className="item-avatar">
                       <img
@@ -214,18 +206,6 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
                         }
                       ></img>
                     </IonAvatar>
-                  </IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol className="ion-text-center">
-                    {/* <IonButton
-                      disabled={hasError ? true : false}
-                      className="ion-text-capitalize"
-                      size="small"
-                      color="secondary"
-                    >
-                      Upload Photo
-                    </IonButton> */}
                   </IonCol>
                 </IonRow>
               </IonGrid>

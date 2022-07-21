@@ -16,7 +16,7 @@ import {
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useParams, useHistory } from "react-router";
 import CustomField from "../../components/Register/CustomField";
 import { useSignupFields } from "../../data/fields";
 import { validateForm } from "../../data/utils";
@@ -27,7 +27,8 @@ import "./style.css";
 
 const Register: React.FC = () => {
   const params = useParams();
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
+  const history = useHistory();
   const fields = useSignupFields();
   const [errors, setErrors] = useState<any>(false);
 
@@ -63,14 +64,13 @@ const Register: React.FC = () => {
 
       let location_path = location.pathname;
       try {
-        dispatch({ type: "REQUEST_REGISTER" });
+        //dispatch({ type: "REQUEST_REGISTER" });
 
-        const result = dispatch(await registerUser(payload, location_path));
-
-        //console.log("Result", result);
+        const result = await registerUser(payload, location_path);
 
         if (result.type === "REGISTER_SUCCESS") {
-          navigate("/login"); //navigate to Home on success
+          //navigate("/login"); //navigate to Home on success
+          history.goBack();
         }
         if (result.type === "REGISTER_FAIL") {
           let errors: any = [];

@@ -15,9 +15,7 @@
     box-shadow: none; */
 }
 
-.img {
-    width: 100%;
-}
+
 /* .img {
     margin:0 !important;
     padding: 0 !important;
@@ -49,8 +47,8 @@
     font-weight: 400;
 }
 
-img {
-    width:100px;
+.img-item {
+    width:100%;
 }
 
 .game-cardlist:hover {

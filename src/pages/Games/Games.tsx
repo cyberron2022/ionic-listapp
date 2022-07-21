@@ -1,54 +1,59 @@
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
-  IonTitle,
-  IonContent,
-  NavContext,
-  IonLoading,
-  IonRefresher,
-  IonRefresherContent,
-  RefresherEventDetail,
-  IonSearchbar,
-  IonList,
-  IonItem,
-  IonLabel,
+  IonButtons,
   IonCard,
   IonCardContent,
-  IonButton,
+  IonContent,
+  IonHeader,
   IonIcon,
-  IonImg,
-  IonCardTitle,
-  IonCardHeader,
+  IonLabel,
+  IonList,
+  IonLoading,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonSearchbar,
+  IonTitle,
+  IonToolbar,
+  NavContext,
+  RefresherEventDetail,
 } from "@ionic/react";
 import {
-  browsers,
   chevronDownCircleOutline,
-  close,
   logoChrome,
   logoWindows,
-  pin,
 } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { Link, NavLink } from "react-router-dom";
+//import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router";
+import { NavLink } from "react-router-dom";
 import isLoggedIn from "../../components/Login/isLoggedIn";
-import { getGamelist } from "../../redux/actions/games";
+import { GlobalContext } from "../../context/context";
+import { getGamelist } from "../../context/actions/games/action";
+// import { getGamelist } from "../../redux/actions/games";
+
 import "./Games.css";
 const Games: React.FC = () => {
-  interface RootState {
-    games: any;
-  }
-  const selectGames = (state: RootState) => state.games;
-  const games = useSelector(selectGames);
-  const data = games.getGameList?.data;
-  const loading = games.getGameList?.loading;
-  const dispatch = useDispatch();
+  // interface RootState {
+  //   games: any;
+  // }
+  // const selectGames = (state: RootState) => state.games;
+  // const games = useSelector(selectGames);
+  // const data = games.getGameList?.data;
+  // const loading = games.getGameList?.loading;
+
+  // const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const {
+    gameDispatch,
+    games: { getGameList },
+  } = useContext(GlobalContext);
+  const { loading, data, errorMessage } = getGameList;
+
   const [nameSearch, setNameSearch] = useState(null as any);
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
   let location = useLocation<any>();
 
   const setSearchInput = (ev: any) => {
@@ -58,23 +63,24 @@ const Games: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("location_path", JSON.stringify(location.pathname));
     if (isLoggedIn()) {
-      navigate("/ionic-listapp/login");
+      history.push("/ionic-listapp/login");
     } else {
       getList();
     }
   }, []);
 
   const getList = async () => {
-    dispatch({ type: "GAME_LIST_REQUEST" });
-    const result = dispatch(await getGamelist(location.pathname));
-
-    console.log("result", data);
+    await gameDispatch({ type: "GAME_LIST_REQUEST" });
+    let dispatch_result = await gameDispatch(
+      await getGamelist(location.pathname)
+    );
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("begin");
     setTimeout(() => {
       getList();
+      console.log(data);
       console.log("end");
       event.detail.complete();
     }, 1000);
@@ -145,7 +151,7 @@ const Games: React.FC = () => {
             ></IonRefresherContent>
           </IonRefresher>
           <IonList>
-            {data.length !== 0 ? (
+            {data?.length !== 0 ? (
               data
                 .filter((item: any) =>
                   item.title
@@ -164,7 +170,7 @@ const Games: React.FC = () => {
                     target="_blank"
                   >
                     <IonCard key={index} className="game-cardlist">
-                      <img className="img" src={item.thumbnail} />
+                      <img className="img-item" src={item.thumbnail} />
                       <IonCardContent>
                         <div className="content-wrapper">
                           <div className="desc-wrapper">
@@ -174,7 +180,6 @@ const Games: React.FC = () => {
                             <div className="genre">Genre: {item.genre}</div>
                             <div className="platform">
                               Platform: {item.platform}{" "}
-                              {/* {callLogo(item.platform)} */}
                             </div>
                           </div>
                         </div>
@@ -186,11 +191,15 @@ const Games: React.FC = () => {
                   </NavLink>
                 ))
             ) : (
-              <IonCard>
-                <IonCardContent>
-                  <IonLabel>No Record found..</IonLabel>
-                </IonCardContent>
-              </IonCard>
+              <>
+                {loading && (
+                  <IonCard>
+                    <IonCardContent className="ion-text-center">
+                      <IonLabel>No Record found..</IonLabel>
+                    </IonCardContent>
+                  </IonCard>
+                )}
+              </>
             )}
           </IonList>
         </IonContent>

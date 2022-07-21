@@ -19,34 +19,40 @@ import {
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 
-import { Camera, CameraResultType } from "@capacitor/camera";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
 import CustomField from "../../components/CreateContact/CustomField";
 import { useContactFields } from "../../data/fields";
 import { validateForm } from "../../data/utils";
-import { createContact } from "../../redux/actions/contact";
+import { createContact, takePicture } from "../../redux/actions/contact";
 import styles from "./CreateContact.module.scss";
-
-import supabase from "../../supabase-client";
+import isLoggedIn from "../../components/Login/isLoggedIn";
 import { camera } from "ionicons/icons";
 const CreateContact: React.FC = () => {
   const history = useHistory();
   const params = useParams();
   const fields = useContactFields();
-  const { navigate } = useContext(NavContext);
+  //const { navigate } = useContext(NavContext);
 
   interface RootState {
     contacts: any;
   }
   const selectContacts = (state: RootState) => state.contacts;
   const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const [errors, setErrors] = useState<any>(false);
   const [showAlert, setShowAlert] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const [imagePath, setImagePath] = useState<any>("");
+  const [loadingMessage, setLoadingMessage] = useState<any>("");
+  useEffect(() => {
+    if (isLoggedIn()) {
+      history.push("/ionic-listapp/login");
+    } else {
+      setImagePath(null);
+    }
+  }, []);
 
   useEffect(() => {
     // console.log("SESSION", supabase.auth.session());
@@ -78,9 +84,7 @@ const CreateContact: React.FC = () => {
 
       let location_path = location.pathname;
       try {
-        dispatch({ type: "REQUEST_CREATE_CONTACT" });
-
-        const result = dispatch(await createContact(payload, location_path));
+        const result = await createContact(payload, location_path);
 
         if (result.type === "CREATE_CONTACT_SUCCESS") {
           //navigate("/contacts/details/" + result.payload.id); //navigate to Home on success
@@ -115,70 +119,22 @@ const CreateContact: React.FC = () => {
     //navigate("/contacts");
   };
 
-  const uploadImage = async (path: string) => {
-    const response = await fetch(path);
-    const blob = await response.blob();
-
-    const filename = path.substring(path.lastIndexOf("/") + 1);
-    const { data, error } = await supabase.storage
-      .from("image-bucket") //Created STORAGE NAME in supabase.com account
-      .upload(`public/${filename}`, blob, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-
-    if (error) alert(error.message);
-    else {
-      let url = await getPicturesUrl(`public/${filename}`);
-      setImagePath(url);
-
-      setTimeout(() => {
-        setIsUpload(false);
-      }, 1500);
-    }
-
-    return true;
-  };
-
-  /**
-   * Take Photo Function
-   */
-  const takePicture = async () => {
-    try {
-      const cameraResult = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri,
-      });
-      const path: any = cameraResult?.webPath || cameraResult?.path;
-
-      // console.log("WEB PATH", path);
-      console.log("BLOB", path);
-
-      setImagePath(null);
-      setIsUpload(true);
-      await uploadImage(path);
-      return true;
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-
-  const getPicturesUrl = async (path: any) => {
-    const { publicURL, error } = supabase.storage
-      .from("image-bucket")
-      .getPublicUrl(path);
-
-    if (error) alert(error.message);
-    console.log("Public URL", publicURL);
-    return publicURL;
+  const handleTakePicture = async () => {
+    const url = await takePicture();
+    setImagePath(url);
   };
 
   return (
     <>
       <IonLoading
-        isOpen={contacts.createContact?.loading || isUpload}
-        message={"Please wait..."}
+        isOpen={
+          contacts.createContact?.loading ||
+          contacts.uploadContactPicture?.loading
+        }
+        message={
+          contacts.createContact?.loadingMessage ||
+          contacts.uploadContactPicture?.loadingMessage
+        }
       />
       {/* <IonLoading isOpen={isUpload} message={"Please wait..."} /> */}
       <IonPage>
@@ -238,7 +194,7 @@ const CreateContact: React.FC = () => {
                   className="ion-text-capitalize"
                   size="small"
                   color="secondary"
-                  onClick={takePicture}
+                  onClick={handleTakePicture}
                 >
                   <IonIcon slot="start" icon={camera} />
                   Take Picture
