@@ -120,7 +120,7 @@ const App: React.FC = () => {
             role: "confirm",
             handler: () => {
               setShowAlert(false);
-              navigate("/ionic-listapp/login");
+              navigate("/ionic-listapp/index.html");
             },
           },
         ]}
