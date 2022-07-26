@@ -135,7 +135,7 @@ function Settings() {
   useEffect(() => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
-
+  console.log("settings");
   return (
     <IonPage>
       <IonAlert

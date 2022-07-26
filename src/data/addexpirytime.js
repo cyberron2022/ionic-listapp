@@ -13,7 +13,7 @@ function addexpirytime() {
 
   // ADD MINUTES
   let NewDate = new Date();
-  let minutesToAdd = 0.5;
+  let minutesToAdd = 30;
   NewDate = new Date(NewDate.getTime() + minutesToAdd * 60000);
   localStorage.removeItem("expiry");
   localStorage.setItem("expiry", JSON.stringify(NewDate.getTime()));

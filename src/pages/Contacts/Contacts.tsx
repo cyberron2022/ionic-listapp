@@ -97,7 +97,7 @@ const Contacts: React.FC = () => {
       event.detail.complete();
     }, 2000);
   }
-
+  console.log("load");
   return (
     <>
       <IonLoading

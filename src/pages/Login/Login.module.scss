@@ -61,12 +61,12 @@
     padding-right: 0.75rem;
   }
   
-  .customButton {
+  .custom-button {
   
     --border-radius: 5px !important;
     --background: rgb(236, 149, 35);
     --background-activated: rgb(192, 125, 38);
     --background-focused: rgb(192, 125, 38);
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
     margin-top: 1rem;
   }

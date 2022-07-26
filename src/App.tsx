@@ -1,7 +1,7 @@
-import { IonAlert, IonApp, NavContext, setupIonicReact } from "@ionic/react";
+import { IonApp, NavContext, setupIonicReact } from "@ionic/react";
 
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import store from "./redux/store";
 
 /* Core CSS required for Ionic components to work properly */
@@ -62,83 +62,77 @@ const App: React.FC = () => {
       clearInterval(timer);
     };
   });
-
+  console.log("app");
   return (
     <IonApp>
       <IonReactRouter>
         <Menu />
         <IonRouterOutlet id="main">
-          <Switch>
-            <Route
-              exact
-              path="/ionic-listapp/home"
-              component={() => <Home />}
-            />
+          <Route exact path="/ionic-listapp/home" component={() => <Home />} />
 
-            <Route exact path="/ionic-listapp/" component={Home}></Route>
-            <Route
-              exact
-              path="/ionic-listapp/accountlist"
-              component={ListOfAccounts}
-            ></Route>
-            <Route exact path="/ionic-listapp/contacts">
-              <Contacts></Contacts>
-            </Route>
-            <Route exact path="/ionic-listapp/create-contact">
-              <CreateContact></CreateContact>
-            </Route>
-            <Route
-              exact
-              path="/ionic-listapp/contacts/details/:id"
-              component={ContactDetails}
-            ></Route>
-            <Route
-              exact
-              path="/ionic-listapp/contacts/update/:id"
-              component={UpdateContact}
-            ></Route>
-            <Route
-              exact
-              path="/ionic-listapp/settings"
-              component={Settings}
-            ></Route>
-            <Route
-              exact
-              path="/ionic-listapp/accountlist/details/:email"
-              component={Details}
-            ></Route>
+          {/* <Route exact path="/ionic-listapp/" component={Home}></Route> */}
+          <Route exact path="/ionic-listapp/">
+            <Redirect to="/ionic-listapp/home" />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/ionic-listapp/home" />
+          </Route>
 
-            <Route exact path="/ionic-listapp/login" component={Login}></Route>
-            <Route
-              exact
-              path="/ionic-listapp/signup"
-              component={Register}
-            ></Route>
-            <Route
-              exact
-              path="/ionic-listapp/iconmenu"
-              component={IconMenu}
-            ></Route>
-            <Route
-              exact
-              path="/ionic-listapp/logout"
-              component={Logout}
-            ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/accountlist"
+            component={ListOfAccounts}
+          ></Route>
+          <Route exact path="/ionic-listapp/contacts">
+            <Contacts></Contacts>
+          </Route>
+          <Route exact path="/ionic-listapp/create-contact">
+            <CreateContact></CreateContact>
+          </Route>
+          <Route
+            exact
+            path="/ionic-listapp/contacts/details/:id"
+            component={ContactDetails}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/contacts/update/:id"
+            component={UpdateContact}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/settings"
+            component={Settings}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/accountlist/details/:email"
+            component={Details}
+          ></Route>
 
-            {/* <Route component={Home}></Route> */}
-            <Route exact path="/ionic-listapp/googlemap">
-              <GoogleMaps></GoogleMaps>
-            </Route>
-            <Route exact path="/ionic-listapp/games">
-              <Games></Games>
-            </Route>
-            <Route
-              exact
-              path="/ionic-listapp/locked"
-              component={Locked}
-            ></Route>
-            <Route path="*" component={ErrorPage}></Route>
-          </Switch>
+          <Route exact path="/ionic-listapp/login" component={Login}></Route>
+          <Route
+            exact
+            path="/ionic-listapp/signup"
+            component={Register}
+          ></Route>
+          <Route
+            exact
+            path="/ionic-listapp/iconmenu"
+            component={IconMenu}
+          ></Route>
+          <Route exact path="/ionic-listapp/logout" component={Logout}></Route>
+
+          {/* <Route component={Home}></Route> */}
+          <Route exact path="/ionic-listapp/googlemap">
+            <GoogleMaps></GoogleMaps>
+          </Route>
+          <Route exact path="/ionic-listapp/games">
+            <Games></Games>
+          </Route>
+
+          <Route exact path="/ionic-listapp/locked" component={Locked}></Route>
+          {/* <Route path="*" component={ErrorPage}></Route> */}
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

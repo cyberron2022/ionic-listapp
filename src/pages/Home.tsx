@@ -15,7 +15,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import isLoggedIn from "../components/Login/isLoggedIn";
 import addexpirytime from "../data/addexpirytime";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import menulist from "../menu";
 import "./Home.css";
 import store from "../redux/store";
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   //const { navigate } = useContext(NavContext);
 
   const history = useHistory();
-
+  const location = useLocation();
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

@@ -112,6 +112,7 @@ const GoogleMaps: React.FC<{}> = (Props) => {
     destinationRef.current.value = "";
   }
 
+  console.log("googlemap");
   return (
     <IonPage>
       <IonAlert
@@ -125,7 +126,7 @@ const GoogleMaps: React.FC<{}> = (Props) => {
       <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonBackButton defaultHref="/ionic-listapp/" />
           </IonButtons>
           <IonTitle className="ion-text-center" style={{ marginRight: "40px" }}>
             Google Map
