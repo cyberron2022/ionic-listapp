@@ -47,6 +47,7 @@ interface ContactDetailPageProps
 
 const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   const history = useHistory();
+  const location = useLocation<any>();
   const params = useParams();
   const fields = useUpdateContactFields();
 
@@ -65,7 +66,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   const [isUpload, setIsUpload] = useState(false);
   const [imagePath, setImagePath] = useState<any>("");
 
-  let location = useLocation<any>();
   const paramID = match.url.replace("/ionic-listapp/contacts/update/", "");
 
   // useIonViewWillEnter( async () => {
@@ -94,7 +94,9 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

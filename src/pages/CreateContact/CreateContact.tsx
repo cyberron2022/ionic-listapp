@@ -35,6 +35,7 @@ const CreateContact: React.FC = () => {
   const history = useHistory();
   const params = useParams();
   const fields = useContactFields();
+  const location = useLocation<any>();
   //const { navigate } = useContext(NavContext);
 
   interface RootState {
@@ -60,7 +61,9 @@ const CreateContact: React.FC = () => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {
@@ -76,8 +79,6 @@ const CreateContact: React.FC = () => {
       setErrors(false);
     };
   }, [params]);
-
-  let location = useLocation<any>();
 
   const createHandlerBtn = async () => {
     const errors = validateForm(fields);

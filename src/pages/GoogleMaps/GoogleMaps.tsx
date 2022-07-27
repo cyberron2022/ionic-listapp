@@ -31,7 +31,7 @@ import {
 import { carSport, close, navigateOutline } from "ionicons/icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import isLoggedIn from "../../components/Login/isLoggedIn";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import "./GoogleMaps.css";
 import store from "../../redux/store";
 
@@ -39,6 +39,7 @@ const libraries: any = ["places"];
 const GoogleMaps: React.FC<{}> = (Props) => {
   //const { navigate } = useContext(NavContext);
   const history = useHistory();
+  const location = useLocation<any>();
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: `${apiKey}`,
@@ -60,7 +61,9 @@ const GoogleMaps: React.FC<{}> = (Props) => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

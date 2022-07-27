@@ -35,7 +35,6 @@ import store from "../../redux/store";
 import "./Games.css";
 const Games: React.FC = () => {
   const history = useHistory();
-
   const {
     gameDispatch,
     games: { getGameList },
@@ -61,7 +60,9 @@ const Games: React.FC = () => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

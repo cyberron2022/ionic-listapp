@@ -35,7 +35,7 @@ import { DEFAULT_IMAGE_URI } from "../../assets/general";
 import { getContacts } from "../../redux/actions/contact";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 import addexpirytime from "../../data/addexpirytime";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import store from "../../redux/store";
 
 import "./Contacts.css";
@@ -46,11 +46,14 @@ const Contacts: React.FC = () => {
   }
   const sortBy: any = localStorage.getItem("sortBy");
   const [nameSearch, setNameSearch] = useState(null as any);
+  const location = useLocation();
 
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

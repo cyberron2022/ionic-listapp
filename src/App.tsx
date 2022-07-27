@@ -24,7 +24,7 @@ import "@ionic/react/css/text-transformation.css";
 import "./theme/variables.css";
 import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import ErrorPage from "./pages/ErrorPage";
@@ -46,9 +46,6 @@ import { checkSession } from "./components/CheckSession";
 
 setupIonicReact();
 const App: React.FC = () => {
-  const { navigate } = useContext(NavContext);
-  const [showAlert, setShowAlert] = useState(false);
-
   const history = useHistory();
 
   useEffect(() => {

@@ -18,7 +18,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { RouteComponentProps, useParams } from "react-router";
+import { RouteComponentProps, useLocation, useParams } from "react-router";
 import { useData } from "../hooks/useData";
 import store from "../redux/store";
 
@@ -31,9 +31,12 @@ interface UserDetailPageProps
 
 const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
   const { getUserByEmail } = useData();
+
   const [user, setUser] = useState(null as any);
   const { navigate } = useContext(NavContext);
+  const location = useLocation();
   const params: any = useParams();
+
   const paramEmail = match.url.replace(
     "/ionic-listapp/accountlist/details/",
     ""
@@ -69,7 +72,9 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

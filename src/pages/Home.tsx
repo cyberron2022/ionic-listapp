@@ -22,7 +22,7 @@ import store from "../redux/store";
 
 import { checkSession } from "../components/CheckSession";
 
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
   //const { navigate } = useContext(NavContext);
 
   const history = useHistory();
@@ -39,18 +39,6 @@ const Home: React.FC = () => {
     setIsUpdate(false);
   }, [isUpdate]);
 
-  // useEffect(() => {
-  //   const user_str: any = localStorage.getItem("currentUser");
-  //   let user = JSON.parse(user_str);
-
-  //   if (user && isUpdate === false) {
-  //     console.log("Add New Expiry", isUpdate);
-  //     // ADD EXPIRY TO LOCAL STORAGE
-  //     addexpirytime();
-  //     setIsUpdate(true);
-  //   }
-  // });
-
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
@@ -62,14 +50,11 @@ const Home: React.FC = () => {
     return () => {
       clearInterval(timer);
 
-      const user_str: any = localStorage.getItem("currentUser");
-      let user = JSON.parse(user_str);
-
-      if (user && isUpdate === false) {
-        console.log("Add New Expiry", isUpdate);
+      if (store.getState().users.isLoggedIn === true && isUpdate === false) {
         // const location_str: any = localStorage.getItem("location_path");
         // let location_path = JSON.parse(location_str);
         // ADD EXPIRY TO LOCAL STORAGE
+        console.log("Add New Expiry", isUpdate);
         addexpirytime();
         setIsUpdate(true);
       }

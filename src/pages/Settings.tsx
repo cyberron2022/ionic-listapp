@@ -21,12 +21,14 @@ import {
 } from "@ionic/react";
 import { chevronForwardOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import isLoggedIn from "../components/Login/isLoggedIn";
 import store from "../redux/store";
 function Settings() {
   //const { navigate } = useContext(NavContext);
+
   const history = useHistory();
+  const location = useLocation();
   const [sortBy, setSortBy] = useState<any>(null);
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState(null);
@@ -38,7 +40,9 @@ function Settings() {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

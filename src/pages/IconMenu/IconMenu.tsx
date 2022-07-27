@@ -35,18 +35,21 @@ import {
   walletOutline,
 } from "ionicons/icons";
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import isLoggedIn from "../../components/Login/isLoggedIn";
 import "./IconMenu.css";
 import store from "../../redux/store";
 
 const IconMenu: React.FC = () => {
   //const { navigate } = useContext(NavContext);
+  const location = useLocation<any>();
 
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

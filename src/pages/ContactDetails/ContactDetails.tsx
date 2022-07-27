@@ -24,7 +24,7 @@ import { star, starOutline, trashOutline } from "ionicons/icons";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useLocation } from "react-router";
 import { DEFAULT_IMAGE_URI } from "../../assets/general";
 
 import {
@@ -48,6 +48,7 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
   interface RootState {
     contacts: any;
   }
+  const location = useLocation();
   const [hasError, setHasError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [presentAlert] = useIonAlert();
@@ -87,7 +88,9 @@ const ContactDetails: React.FC<ContactDetailPageProps> = ({
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {

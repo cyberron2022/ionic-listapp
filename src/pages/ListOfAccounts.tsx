@@ -20,11 +20,12 @@ import {
 import { settingsOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import isLoggedIn from "../components/Login/isLoggedIn";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { useData } from "../hooks/useData";
 import store from "../redux/store";
 const ListOfAccounts: React.FC = () => {
   const { data } = useData();
+  const location = useLocation();
   const [nameSearch, setNameSearch] = useState(null as any);
   //const { navigate } = useContext(NavContext);
   const history = useHistory();
@@ -35,7 +36,9 @@ const ListOfAccounts: React.FC = () => {
   useEffect(() => {
     let timer = setInterval(() => {
       if (store.getState().users.isLoggedIn === false) {
-        history.push("/ionic-listapp/locked");
+        if (location.pathname !== "/ionic-listapp/login") {
+          history.push("/ionic-listapp/locked");
+        }
       }
     }, 1000);
     return () => {
