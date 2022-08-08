@@ -72,7 +72,7 @@ const GoogleMaps: React.FC<{}> = (Props) => {
   });
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() === false) {
       history.push("/ionic-listapp/login");
     }
   }, []);

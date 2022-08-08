@@ -1,76 +1,25 @@
-import {
-  IonApp,
-  IonSplitPane,
-  NavContext,
-  setupIonicReact,
-  useIonViewWillEnter,
-} from "@ionic/react";
-
-import React, { useContext, useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import store from "./redux/store";
-
-/* Core CSS required for Ionic components to work properly */
-import "@ionic/react/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-import "@ionic/react/css/normalize.css";
-import "@ionic/react/css/structure.css";
-import "@ionic/react/css/typography.css";
-
-/* Optional CSS utils that can be commented out */
-import "@ionic/react/css/display.css";
-import "@ionic/react/css/flex-utils.css";
-import "@ionic/react/css/float-elements.css";
-import "@ionic/react/css/padding.css";
-import "@ionic/react/css/text-alignment.css";
-import "@ionic/react/css/text-transformation.css";
-
-/* Theme variables */
-import "./theme/variables.css";
-import { IonRouterOutlet } from "@ionic/react";
+import React from "react";
+import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Details from "./pages/Details";
-import ErrorPage from "./pages/ErrorPage";
-import ListOfAccounts from "./pages/ListOfAccounts";
-import Login from "./pages/Login/Login";
-import Settings from "./pages/Settings";
-import Menu from "./pages/SideMenu/Menu";
-import ContactDetails from "./pages/ContactDetails/ContactDetails";
-import Contacts from "./pages/Contacts/Contacts";
-import CreateContact from "./pages/CreateContact/CreateContact";
-import Logout from "./pages/Logout";
-import Register from "./pages/Register/Register";
-import GoogleMaps from "./pages/GoogleMaps/GoogleMaps";
-import UpdateContact from "./pages/UpdateContact/UpdateContact";
-import IconMenu from "./pages/IconMenu/IconMenu";
-import Games from "./pages/Games/Games";
-import Locked from "./Locked";
-import { checkSession } from "./components/CheckSession";
-import MainRoute from "./pages/MainRoute";
-
-setupIonicReact();
-
-const App: React.FC = () => {
-  const history = useHistory();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    let timer = setInterval(() => {
-      if (store.getState().users.isLoggedIn === true) {
-        let session = checkSession();
-      }
-      setIsLoggedIn(store.getState().users.isLoggedIn);
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  });
-
+import { Redirect, Route } from "react-router-dom";
+import Home from "../pages/Home";
+import Details from "../pages/Details";
+import ErrorPage from "../pages/ErrorPage";
+import ListOfAccounts from "../pages/ListOfAccounts";
+import Login from "../pages/Login/Login";
+import Settings from "../pages/Settings";
+import Menu from "../pages/SideMenu/Menu";
+import ContactDetails from "../pages/ContactDetails/ContactDetails";
+import Contacts from "../pages/Contacts/Contacts";
+import CreateContact from "../pages/CreateContact/CreateContact";
+import Logout from "../pages/Logout";
+import Register from "../pages/Register/Register";
+import GoogleMaps from "../pages/GoogleMaps/GoogleMaps";
+import UpdateContact from "../pages/UpdateContact/UpdateContact";
+import IconMenu from "../pages/IconMenu/IconMenu";
+import Games from "../pages/Games/Games";
+import Locked from "../Locked";
+const MainRoute: React.FC = () => {
   return (
     <IonApp>
       <>
@@ -78,16 +27,6 @@ const App: React.FC = () => {
           <IonSplitPane contentId="main">
             <Menu />
             <IonRouterOutlet id="main">
-              <Route
-                exact
-                path="/ionic-listapp/login"
-                component={Login}
-              ></Route>
-              <Route
-                exact
-                path="/ionic-listapp/signup"
-                component={Register}
-              ></Route>
               <Route
                 exact
                 path="/ionic-listapp/home"
@@ -138,6 +77,11 @@ const App: React.FC = () => {
 
               <Route
                 exact
+                path="/ionic-listapp/signup"
+                component={Register}
+              ></Route>
+              <Route
+                exact
                 path="/ionic-listapp/iconmenu"
                 component={IconMenu}
               ></Route>
@@ -160,6 +104,7 @@ const App: React.FC = () => {
                 path="/ionic-listapp/locked"
                 component={Locked}
               ></Route>
+              {/* <Route path="*" component={ErrorPage}></Route> */}
             </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>
@@ -168,4 +113,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default MainRoute;

@@ -72,13 +72,11 @@ const Contacts: React.FC = () => {
   const contactState: any = store.getState().contacts;
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() === false) {
       history.push("/ionic-listapp/login");
+    } else {
+      loadContacts();
     }
-  }, []);
-
-  useEffect(() => {
-    loadContacts();
   }, []);
 
   const loadContacts = () => {

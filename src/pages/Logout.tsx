@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/actions/users";
 import { useHistory } from "react-router";
+
 function Logout() {
-  //const { navigate } = useContext(NavContext);
   const history = useHistory();
   interface RootState {
     users: any;

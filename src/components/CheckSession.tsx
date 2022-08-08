@@ -28,7 +28,7 @@ function isExpired(key: any) {
 
   const item = itemStr;
   const now: any = new Date();
-  //console.log("NOW", now.getTime(), "EXPIRY", item);
+  // console.log("NOW", now.getTime(), "EXPIRY", item);
   // compare the expiry time of the item with the current time
   if (now.getTime() > item) {
     // If the item is expired, delete the item from storage

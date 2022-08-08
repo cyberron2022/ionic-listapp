@@ -6,10 +6,10 @@ function isLoggedIn() {
 
   if (store.getState().users.isLoggedIn === false) {
     //logout user
-    return true;
+    return false;
   } else {
     //user stay
-    return false;
+    return true;
   }
 
   // if (user) {

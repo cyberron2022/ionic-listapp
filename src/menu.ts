@@ -16,13 +16,6 @@ export default [
     'color': '#0CA9EA'
   },
   {
-    'title': 'Settings',
-    'icon': settingsOutline,
-    'link': '/ionic-listapp/settings',
-    'description': 'Apllication Configuration',
-    'color': '#0CA9EA'
-  },
-  {
     'title': 'Icon Menu',
     'icon': gridOutline,
     'link': '/ionic-listapp/iconmenu',
@@ -43,11 +36,5 @@ export default [
     'description': 'Google Map Project',
     'color': '#0CA9EA'
   },
-  {
-    'title': 'Logout',
-    'icon': logOutOutline,
-    'link': '/ionic-listapp/logout',
-    'description': 'Sign out user',
-    'color': '#0CA9EA'
-  },
+  
 ];

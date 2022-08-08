@@ -50,6 +50,14 @@ function Settings() {
     };
   });
 
+  useEffect(() => {
+    if (isLoggedIn() === false) {
+      history.push("/ionic-listapp/login");
+    } else {
+      getSettings();
+    }
+  }, []);
+
   const data = [
     {
       title: "My Info",
@@ -129,14 +137,6 @@ function Settings() {
   };
 
   useEffect(() => {
-    if (isLoggedIn()) {
-      history.push("/ionic-listapp/login");
-    } else {
-      getSettings();
-    }
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem("sortBy", sortBy);
   }, [sortBy]);
   console.log("settings");
@@ -169,7 +169,7 @@ function Settings() {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
+            <IonBackButton defaultHref="/ionic-listapp/home"></IonBackButton>
           </IonButtons>
           <IonTitle>Settings</IonTitle>
         </IonToolbar>

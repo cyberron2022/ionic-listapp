@@ -21,7 +21,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { RouteComponentProps, useLocation, useParams } from "react-router";
 import { useData } from "../hooks/useData";
 import store from "../redux/store";
-
+import isLoggedIn from "../components/Login/isLoggedIn";
 import "./Details.css";
 
 interface UserDetailPageProps
@@ -81,6 +81,11 @@ const Details: React.FC<UserDetailPageProps> = ({ match, history }) => {
       clearInterval(timer);
     };
   });
+  useEffect(() => {
+    if (isLoggedIn() === false) {
+      history.push("/ionic-listapp/login");
+    }
+  }, []);
 
   const convertToDate = (param: string) => {
     let newDate = new Date(param);

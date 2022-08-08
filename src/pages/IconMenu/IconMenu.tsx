@@ -59,7 +59,7 @@ const IconMenu: React.FC = () => {
 
   const history = useHistory();
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() === false) {
       history.push("/ionic-listapp/login");
     }
   }, []);

@@ -79,16 +79,20 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
   // });
 
   useEffect(() => {
-    const loadContactDetail = async () => {
-      const result: any = await getContactsDetailByID(paramID);
-      if (!result.payload?.detail) {
-        setHasError(false);
-      } else {
-        setHasError(true);
-        setShowAlert(true);
-      }
-    };
-    loadContactDetail();
+    if (isLoggedIn() === false) {
+      history.push("/ionic-listapp/login");
+    } else {
+      const loadContactDetail = async () => {
+        const result: any = await getContactsDetailByID(paramID);
+        if (!result.payload?.detail) {
+          setHasError(false);
+        } else {
+          setHasError(true);
+          setShowAlert(true);
+        }
+      };
+      loadContactDetail();
+    }
   }, []);
 
   useEffect(() => {
@@ -103,12 +107,6 @@ const UpdateContact: React.FC<ContactDetailPageProps> = ({ match }) => {
       clearInterval(timer);
     };
   });
-
-  useEffect(() => {
-    if (isLoggedIn()) {
-      history.push("/ionic-listapp/login");
-    }
-  }, []);
 
   useEffect(() => {
     fields.forEach((field) => {

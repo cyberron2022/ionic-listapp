@@ -51,7 +51,7 @@ const CreateContact: React.FC = () => {
   const [loadingMessage, setLoadingMessage] = useState<any>("");
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() === false) {
       history.push("/ionic-listapp/login");
     } else {
       setImagePath(null);

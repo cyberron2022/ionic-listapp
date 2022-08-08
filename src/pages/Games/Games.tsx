@@ -50,7 +50,7 @@ const Games: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (isLoggedIn() === false) {
       history.push("/ionic-listapp/login");
     } else {
       getList();

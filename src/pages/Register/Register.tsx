@@ -14,13 +14,15 @@ import {
   IonToolbar,
   NavContext,
 } from "@ionic/react";
+import { logOut } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useHistory } from "react-router";
 import CustomField from "../../components/Register/CustomField";
+
 import { useSignupFields } from "../../data/fields";
 import { validateForm } from "../../data/utils";
-import { registerUser } from "../../redux/actions/users";
+import { logout, registerUser } from "../../redux/actions/users";
 import store from "../../redux/store";
 import styles from "./Register.module.scss";
 import "./style.css";
@@ -44,6 +46,11 @@ const Register: React.FC = () => {
 
   let location = useLocation<any>();
 
+  async function signOut() {
+    await logout();
+    history.push("/ionic-listapp/login");
+  }
+
   const register = async () => {
     const errors = validateForm(fields);
     setErrors(errors);
@@ -65,7 +72,12 @@ const Register: React.FC = () => {
 
         if (result.type === "REGISTER_SUCCESS") {
           //navigate("/login"); //navigate to Home on success
-          history.goBack();
+
+          if (store.getState().users.isLoggedIn === true) {
+            signOut();
+          } else {
+            history.goBack();
+          }
         }
         if (result.type === "REGISTER_FAIL") {
           let errors: any = [];
