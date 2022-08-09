@@ -56,7 +56,7 @@ const Login: React.FC = () => {
       try {
         const result = await loginUser(payload);
 
-        console.log("Result", result);
+        console.log("Login Result", result);
 
         if (result.type === "LOGIN_SUCCESS") {
           history.push("/ionic-listapp/home"); //navigate to Home on success

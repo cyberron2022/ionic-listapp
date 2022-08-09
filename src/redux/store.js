@@ -17,4 +17,7 @@ const reducers = combineReducers({
   games: games,
 });
 
-export default createStore(reducers, middlewares);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export default createStore(reducers, composeEnhancers(middlewares));
+
+//export default createStore(reducers, middlewares);

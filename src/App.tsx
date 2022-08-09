@@ -49,7 +49,6 @@ import IconMenu from "./pages/IconMenu/IconMenu";
 import Games from "./pages/Games/Games";
 import Locked from "./Locked";
 import { checkSession } from "./components/CheckSession";
-import MainRoute from "./pages/MainRoute";
 
 setupIonicReact();
 
@@ -88,12 +87,10 @@ const App: React.FC = () => {
                 path="/ionic-listapp/signup"
                 component={Register}
               ></Route>
-              <Route
-                exact
-                path="/ionic-listapp/home"
-                component={() => <Home />}
-              />
-              <Route component={() => <Home />}></Route>
+              <Route exact path="/ionic-listapp/home">
+                <Home />
+              </Route>
+              {/* <Route component={() => <Home />}></Route> */}
 
               {/* <Route exact path="/ionic-listapp/" component={Home}></Route> */}
               <Route exact path="/ionic-listapp/">

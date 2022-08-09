@@ -30,6 +30,7 @@ const Home: React.FC = (props) => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
+    console.log("we are in home page");
     if (isLoggedIn() === false) {
       console.log("ISLOGGEDIN", isLoggedIn());
       history.push("/ionic-listapp/login");
